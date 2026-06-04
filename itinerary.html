@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>璟松 · 行程規劃系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#1C3A2D; --gold:#C4A35A; --sage:#8A9E8F;
+  --charcoal:#2C2C2C; --ivory:#F4EFE6; --divider:#D2CABE;
+  --serif:'Cormorant Garamond',serif; --tc:'Noto Serif TC',serif; --label:'Jura',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--tc);color:var(--charcoal);background:var(--ivory);line-height:1.7;font-weight:300}
+.label{font-family:var(--label);letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--sage)}
+button{font-family:var(--label);cursor:pointer;border:none;letter-spacing:.1em;transition:all .25s}
+input,textarea,select{font-family:var(--tc);font-weight:300;color:var(--charcoal)}
+
+.top-rule{height:5px;background:var(--gold)}
+
+/* ── header ── */
+header{background:var(--pine);color:var(--ivory);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+header .brand{display:flex;align-items:center;gap:14px}
+header .mark{width:38px;height:38px;color:var(--gold)}
+header h1{font-family:var(--tc);font-weight:400;font-size:1.4rem;letter-spacing:.16em}
+header h1 small{font-family:var(--label);letter-spacing:.2em;font-size:.7rem;color:var(--gold);display:block;text-transform:uppercase;margin-top:2px}
+header .actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:11px 22px;font-size:.76rem;text-transform:uppercase}
+.btn-gold{background:var(--gold);color:var(--pine)}
+.btn-gold:hover{background:#d6b76e}
+.btn-ghost{background:transparent;color:var(--ivory);border:1px solid rgba(244,239,230,.4)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+.layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 100px)}
+@media(max-width:820px){.layout{grid-template-columns:1fr}}
+
+/* ── sidebar ── */
+.sidebar{background:#EDE6D8;border-right:1px solid var(--divider);padding:30px 24px}
+.sidebar .label{display:block;margin-bottom:18px}
+.trip-list{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.trip-item{background:#fff;border:1px solid var(--divider);border-left:3px solid var(--divider);padding:14px 16px;cursor:pointer;transition:all .25s}
+.trip-item:hover{border-left-color:var(--sage)}
+.trip-item.active{border-left-color:var(--gold);background:#fffdf8}
+.trip-item h3{font-weight:400;font-size:1.08rem;letter-spacing:.06em;color:var(--pine)}
+.trip-item .dest{font-size:.82rem;color:var(--sage);margin-top:2px}
+.trip-item .dates{font-family:var(--label);font-size:.7rem;color:var(--charcoal);margin-top:4px;letter-spacing:.05em}
+.btn-add{width:100%;background:var(--pine);color:var(--ivory);padding:14px;font-size:.78rem;text-transform:uppercase}
+.btn-add:hover{background:#264c3b}
+
+/* ── main ── */
+.main{padding:40px 48px}
+@media(max-width:820px){.main{padding:28px 22px}}
+.empty{text-align:center;color:var(--sage);padding:120px 20px}
+.empty .mark{width:80px;height:80px;color:var(--divider);margin:0 auto 24px}
+.empty p{font-family:var(--serif);font-style:italic;font-size:1.4rem}
+
+.trip-head{border-bottom:2px solid var(--pine);padding-bottom:20px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px}
+.trip-head h2{font-family:var(--tc);font-weight:300;font-size:2.2rem;letter-spacing:.1em;color:var(--pine)}
+.trip-head .meta{font-family:var(--label);letter-spacing:.1em;font-size:.82rem;color:var(--sage);margin-top:6px}
+.trip-head .ctrl{display:flex;gap:10px}
+.icon-btn{background:transparent;color:var(--sage);font-size:.72rem;text-transform:uppercase;padding:8px 14px;border:1px solid var(--divider)}
+.icon-btn:hover{color:var(--pine);border-color:var(--sage)}
+.icon-btn.danger:hover{color:#a33;border-color:#a33}
+
+/* ── day ── */
+.day{margin-top:34px}
+.day-head{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.day-head .dnum{font-family:var(--serif);font-style:italic;font-size:1.8rem;color:var(--gold);min-width:60px}
+.day-head .dtitle{font-family:var(--tc);font-weight:400;font-size:1.25rem;color:var(--pine);letter-spacing:.06em}
+.day-head .ddate{font-family:var(--label);font-size:.76rem;color:var(--sage);letter-spacing:.08em}
+.day-head .line{flex:1;height:1px;background:var(--divider)}
+
+.event{display:grid;grid-template-columns:90px 1fr auto;gap:18px;background:#fff;border:1px solid var(--divider);padding:16px 18px;margin-bottom:10px;align-items:start}
+.event .time{font-family:var(--label);font-weight:500;color:var(--pine);font-size:.9rem;letter-spacing:.05em;padding-top:2px}
+.event .info h4{font-weight:600;font-size:1.05rem;color:var(--charcoal);letter-spacing:.04em}
+.event .info .place{font-size:.84rem;color:var(--sage);margin-top:2px}
+.event .info .note{font-size:.86rem;color:var(--charcoal);margin-top:6px;opacity:.85;white-space:pre-wrap}
+.event .del{background:transparent;color:var(--divider);font-size:1.2rem;line-height:1;padding:0 6px}
+.event .del:hover{color:#a33}
+.add-event{width:100%;background:transparent;border:1px dashed var(--divider);color:var(--sage);padding:12px;font-size:.74rem;text-transform:uppercase;margin-top:4px}
+.add-event:hover{border-color:var(--gold);color:var(--gold)}
+.btn-add-day{background:transparent;border:1px solid var(--pine);color:var(--pine);padding:13px 28px;font-size:.76rem;text-transform:uppercase;margin-top:36px}
+.btn-add-day:hover{background:var(--pine);color:var(--ivory)}
+
+/* ── modal ── */
+.modal-bg{position:fixed;inset:0;background:rgba(28,58,45,.55);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.modal-bg.show{display:flex}
+.modal{background:var(--ivory);max-width:480px;width:100%;padding:0;max-height:90vh;overflow-y:auto}
+.modal .mtop{height:5px;background:var(--gold)}
+.modal .mbody{padding:34px 36px}
+.modal h3{font-family:var(--tc);font-weight:400;font-size:1.5rem;color:var(--pine);letter-spacing:.08em;margin-bottom:24px}
+.field{margin-bottom:18px}
+.field label{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;color:var(--sage);margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;padding:11px 14px;border:1px solid var(--divider);background:#fff;font-size:.95rem;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--gold)}
+.field textarea{resize:vertical;min-height:70px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.modal .mactions{display:flex;gap:12px;margin-top:28px}
+.modal .mactions button{flex:1;padding:13px;font-size:.78rem;text-transform:uppercase}
+
+/* ── print ── */
+@media print{
+  .top-rule,header .actions,.sidebar,.trip-head .ctrl,.add-event,.btn-add-day,.event .del,.modal-bg{display:none!important}
+  body{background:#fff}
+  .layout{display:block}
+  .main{padding:0}
+  header{background:#fff;color:var(--pine);border-bottom:2px solid var(--gold);padding:0 0 16px}
+  header .mark{color:var(--pine)}
+  header h1 small{color:var(--sage)}
+  .event,.trip-item{break-inside:avoid}
+  .day{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="top-rule"></div>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="pine">
+  <circle cx="50" cy="52" r="42" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="50" cy="52" r="38" fill="none" stroke="currentColor" stroke-width=".8"/>
+  <line x1="47" y1="26" x2="53" y2="26" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="43" y1="36" x2="57" y2="36" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="39" y1="46" x2="61" y2="46" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="35" y1="57" x2="65" y2="57" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="50" y1="57" x2="50" y2="72" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="44" y1="72" x2="56" y2="72" stroke="currentColor" stroke-width="2.4"/>
+</g>
+</defs></svg>
+
+<header>
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
+    <h1>璟松 · 行程規劃<small>Jing Song Itinerary</small></h1>
+  </div>
+  <div class="actions">
+    <button class="btn btn-ghost" onclick="exportData()">匯出備份</button>
+    <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">匯入備份</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    <button class="btn btn-gold" onclick="window.print()">列印 / 存 PDF</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <span class="label">我的旅程</span>
+    <div class="trip-list" id="tripList"></div>
+    <button class="btn-add" onclick="openTripModal()">＋ 新增旅程</button>
+  </aside>
+
+  <main class="main" id="main"></main>
+</div>
+
+<!-- Trip Modal -->
+<div class="modal-bg" id="tripModal">
+  <div class="modal">
+    <div class="mtop"></div>
+    <div class="mbody">
+      <h3 id="tripModalTitle">新增旅程</h3>
+      <div class="field"><label>旅程名稱</label><input id="tName" placeholder="例：京都的秋天"></div>
+      <div class="field"><label>目的地</label><input id="tDest" placeholder="例：日本 · 京都"></div>
+      <div class="field-row">
+        <div class="field"><label>出發日期</label><input type="date" id="tStart"></div>
+        <div class="field"><label>結束日期</label><input type="date" id="tEnd"></div>
+      </div>
+      <div class="mactions">
+        <button class="btn-ghost" style="border-color:var(--divider);color:var(--charcoal)" onclick="closeModal('tripModal')">取消</button>
+        <button class="btn-gold" onclick="saveTrip()">儲存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Event Modal -->
+<div class="modal-bg" id="eventModal">
+  <div class="modal">
+    <div class="mtop"></div>
+    <div class="mbody">
+      <h3>新增行程項目</h3>
+      <div class="field"><label>時間</label><input id="eTime" placeholder="例：09:30"></div>
+      <div class="field"><label>活動 / 景點</label><input id="eTitle" placeholder="例：清水寺 晨間參拜"></div>
+      <div class="field"><label>地點</label><input id="ePlace" placeholder="例：東山區清水"></div>
+      <div class="field"><label>備註</label><textarea id="eNote" placeholder="交通方式、預約、費用、提醒…"></textarea></div>
+      <div class="mactions">
+        <button class="btn-ghost" style="border-color:var(--divider);color:var(--charcoal)" onclick="closeModal('eventModal')">取消</button>
+        <button class="btn-gold" onclick="saveEvent()">加入</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const KEY='jingsong_trips_v1';
+let trips=load();
+let activeId=trips[0]?.id||null;
+let editTripId=null, targetDayIdx=null;
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+function save(){localStorage.setItem(KEY,JSON.stringify(trips))}
+function uid(){return 't'+Date.now()+Math.floor(Math.random()*999)}
+function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00');return`${d.getMonth()+1}/${d.getDate()}`}
+function fmtFull(s){if(!s)return'';const d=new Date(s+'T00:00');const w=['日','一','二','三','四','五','六'][d.getDay()];return`${d.getMonth()+1}月${d.getDate()}日 (${w})`}
+function daysBetween(a,b){if(!a||!b)return 1;const d=(new Date(b)-new Date(a))/86400000;return Math.max(1,Math.round(d)+1)}
+
+function openTripModal(id){
+  editTripId=id||null;
+  const t=id?trips.find(x=>x.id===id):null;
+  document.getElementById('tripModalTitle').textContent=id?'編輯旅程':'新增旅程';
+  document.getElementById('tName').value=t?.name||'';
+  document.getElementById('tDest').value=t?.dest||'';
+  document.getElementById('tStart').value=t?.start||'';
+  document.getElementById('tEnd').value=t?.end||'';
+  document.getElementById('tripModal').classList.add('show');
+}
+function saveTrip(){
+  const name=document.getElementById('tName').value.trim();
+  if(!name){alert('請輸入旅程名稱');return}
+  const data={name,dest:document.getElementById('tDest').value.trim(),
+    start:document.getElementById('tStart').value,end:document.getElementById('tEnd').value};
+  if(editTripId){Object.assign(trips.find(x=>x.id===editTripId),data)}
+  else{const t={id:uid(),...data,days:[]};const n=daysBetween(data.start,data.end);
+    for(let i=0;i<n;i++)t.days.push({events:[]});trips.push(t);activeId=t.id}
+  save();closeModal('tripModal');render()
+}
+function delTrip(id){if(!confirm('確定刪除這個旅程？此動作無法復原。'))return;
+  trips=trips.filter(x=>x.id!==id);if(activeId===id)activeId=trips[0]?.id||null;save();render()}
+
+function addDay(){const t=trips.find(x=>x.id===activeId);t.days.push({events:[]});save();render()}
+function delDay(idx){const t=trips.find(x=>x.id===activeId);if(!confirm('刪除第 '+(idx+1)+' 天？'))return;t.days.splice(idx,1);save();render()}
+
+function openEventModal(dayIdx){targetDayIdx=dayIdx;
+  ['eTime','eTitle','ePlace','eNote'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('eventModal').classList.add('show');
+  setTimeout(()=>document.getElementById('eTime').focus(),50)}
+function saveEvent(){
+  const title=document.getElementById('eTitle').value.trim();
+  if(!title){alert('請輸入活動名稱');return}
+  const t=trips.find(x=>x.id===activeId);
+  t.days[targetDayIdx].events.push({
+    time:document.getElementById('eTime').value.trim(),title,
+    place:document.getElementById('ePlace').value.trim(),
+    note:document.getElementById('eNote').value.trim()});
+  t.days[targetDayIdx].events.sort((a,b)=>(a.time||'99').localeCompare(b.time||'99'));
+  save();closeModal('eventModal');render()}
+function delEvent(dayIdx,evIdx){const t=trips.find(x=>x.id===activeId);t.days[dayIdx].events.splice(evIdx,1);save();render()}
+
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+
+function dayDate(t,idx){if(!t.start)return'';const d=new Date(t.start+'T00:00');d.setDate(d.getDate()+idx);
+  const w=['日','一','二','三','四','五','六'][d.getDay()];return`${d.getMonth()+1}/${d.getDate()} (${w})`}
+
+function render(){
+  // sidebar
+  const tl=document.getElementById('tripList');
+  tl.innerHTML=trips.map(t=>`<div class="trip-item ${t.id===activeId?'active':''}" onclick="activeId='${t.id}';render()">
+    <h3>${esc(t.name)}</h3>
+    ${t.dest?`<div class="dest">${esc(t.dest)}</div>`:''}
+    ${t.start?`<div class="dates">${fmtDate(t.start)} – ${fmtDate(t.end)} · ${t.days.length}天</div>`:`<div class="dates">${t.days.length}天</div>`}
+  </div>`).join('')||'<p style="color:var(--sage);font-size:.85rem">尚無旅程，點下方新增。</p>';
+
+  // main
+  const m=document.getElementById('main');
+  const t=trips.find(x=>x.id===activeId);
+  if(!t){m.innerHTML=`<div class="empty"><svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
+    <p>選擇或新增一段旅程<br>開始規劃。</p></div>`;return}
+
+  let html=`<div class="trip-head"><div>
+    <h2>${esc(t.name)}</h2>
+    <div class="meta">${t.dest?esc(t.dest)+' &nbsp;·&nbsp; ':''}${t.start?fmtFull(t.start)+' － '+fmtFull(t.end):''} &nbsp;·&nbsp; 共 ${t.days.length} 天</div>
+    </div><div class="ctrl">
+      <button class="icon-btn" onclick="openTripModal('${t.id}')">編輯</button>
+      <button class="icon-btn danger" onclick="delTrip('${t.id}')">刪除</button>
+    </div></div>`;
+
+  t.days.forEach((day,i)=>{
+    html+=`<div class="day"><div class="day-head">
+      <span class="dnum">${['一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四'][i]||(i+1)}</span>
+      <span class="dtitle">第 ${i+1} 天</span>
+      <span class="ddate">${dayDate(t,i)}</span>
+      <span class="line"></span>
+      <button class="icon-btn danger" onclick="delDay(${i})" style="border:none;padding:4px 8px">✕</button>
+    </div>`;
+    day.events.forEach((e,j)=>{
+      html+=`<div class="event">
+        <div class="time">${esc(e.time)||'—'}</div>
+        <div class="info"><h4>${esc(e.title)}</h4>
+          ${e.place?`<div class="place">⌖ ${esc(e.place)}</div>`:''}
+          ${e.note?`<div class="note">${esc(e.note)}</div>`:''}</div>
+        <button class="del" onclick="delEvent(${i},${j})">×</button>
+      </div>`;
+    });
+    html+=`<button class="add-event" onclick="openEventModal(${i})">＋ 加入行程項目</button></div>`;
+  });
+  html+=`<button class="btn-add-day" onclick="addDay()">＋ 新增一天</button>`;
+  m.innerHTML=html;
+}
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(trips,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='璟松行程備份_'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function importData(ev){const f=ev.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);
+    if(!Array.isArray(d))throw 0;
+    if(confirm('匯入將覆蓋目前所有旅程，確定？')){trips=d;activeId=trips[0]?.id||null;save();render()}
+  }catch(e){alert('檔案格式錯誤')}};r.readAsText(f);ev.target.value=''}
+
+// seed example on first visit
+if(trips.length===0){
+  trips=[{id:uid(),name:'京都的秋天',dest:'日本 · 京都',start:'2026-11-15',end:'2026-11-17',
+    days:[
+      {events:[{time:'09:30',title:'清水寺 晨間參拜',place:'東山區清水',note:'避開午後人潮，早上光線最美'},
+               {time:'12:00',title:'二年坂 · 三年坂散策',place:'產寧坂',note:'午餐：順正湯豆腐'},
+               {time:'16:00',title:'八坂神社 → 祇園',place:'祇園',note:'黃昏時分石板路最有味道'}]},
+      {events:[{time:'08:00',title:'嵐山 竹林之道',place:'嵯峨嵐山',note:'搭嵐電前往，越早越靜'},
+               {time:'10:30',title:'天龍寺 庭園',place:'嵐山',note:'借景庭園，秋楓必看'}]},
+      {events:[{time:'10:00',title:'伏見稻荷大社 千本鳥居',place:'伏見區',note:'登山約2小時，量力而為'}]}
+    ]}];
+  activeId=trips[0].id;save();
+}
+render();
+</script>
+</body>
+</html>
