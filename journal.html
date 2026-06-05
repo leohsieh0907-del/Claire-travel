@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>璟松 · 旅遊日誌</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#1C3A2D; --gold:#C4A35A; --sage:#8A9E8F;
+  --charcoal:#2C2C2C; --ivory:#F4EFE6; --divider:#D2CABE;
+  --serif:'Cormorant Garamond',serif; --tc:'Noto Serif TC',serif; --label:'Jura',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--tc);color:var(--charcoal);background:var(--ivory);line-height:1.8;font-weight:300}
+.label{font-family:var(--label);letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--sage)}
+button{font-family:var(--label);cursor:pointer;border:none;letter-spacing:.1em;transition:all .25s}
+input,textarea,select{font-family:var(--tc);font-weight:300;color:var(--charcoal)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.top-rule{height:5px;background:var(--gold)}
+
+header{background:var(--pine);color:var(--ivory);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+header .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
+header .mark{width:36px;height:36px;color:var(--gold)}
+header h1{font-family:var(--tc);font-weight:400;font-size:1.32rem;letter-spacing:.16em}
+header h1 small{font-family:var(--label);letter-spacing:.2em;font-size:.68rem;color:var(--gold);display:block;text-transform:uppercase;margin-top:2px}
+header nav{display:flex;gap:26px;align-items:center}
+header nav a{font-family:var(--label);letter-spacing:.16em;font-size:.76rem;text-transform:uppercase;color:rgba(244,239,230,.8)}
+header nav a:hover,header nav a.active{color:var(--gold)}
+.btn{padding:11px 22px;font-size:.76rem;text-transform:uppercase}
+.btn-gold{background:var(--gold);color:var(--pine)}
+.btn-gold:hover{background:#d6b76e}
+.btn-ghost{background:transparent;color:var(--ivory);border:1px solid rgba(244,239,230,.4)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+.wrap{max-width:1080px;margin:0 auto;padding:54px 40px 90px}
+@media(max-width:640px){.wrap{padding:36px 22px 70px}}
+
+/* intro */
+.intro{text-align:center;margin-bottom:60px}
+.intro .label{display:block;margin-bottom:16px}
+.intro h2{font-family:var(--tc);font-weight:300;font-size:clamp(2rem,5vw,2.8rem);letter-spacing:.14em;color:var(--pine)}
+.intro .line{width:50px;height:1px;background:var(--gold);margin:24px auto 0}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;flex-wrap:wrap;gap:14px}
+.toolbar .util{display:flex;gap:10px}
+.btn-pine{background:var(--pine);color:var(--ivory);padding:12px 26px;font-size:.78rem;text-transform:uppercase}
+.btn-pine:hover{background:#264c3b}
+.btn-line{background:transparent;border:1px solid var(--divider);color:var(--sage);padding:11px 20px;font-size:.74rem;text-transform:uppercase}
+.btn-line:hover{border-color:var(--sage);color:var(--pine)}
+
+/* list grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.post-card{background:#fff;border:1px solid var(--divider);overflow:hidden;cursor:pointer;transition:transform .4s,box-shadow .4s;display:flex;flex-direction:column}
+.post-card:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(28,58,45,.13)}
+.post-card .cover{height:220px;background:linear-gradient(135deg,var(--pine),var(--sage));background-size:cover;background-position:center;position:relative}
+.post-card .cover .date-tag{position:absolute;top:16px;left:16px;background:rgba(244,239,230,.92);color:var(--pine);font-family:var(--label);font-size:.72rem;letter-spacing:.08em;padding:5px 12px}
+.post-card .body{padding:24px 26px 28px;flex:1;display:flex;flex-direction:column}
+.post-card .place{font-family:var(--label);letter-spacing:.18em;text-transform:uppercase;font-size:.68rem;color:var(--gold);margin-bottom:8px}
+.post-card h3{font-family:var(--tc);font-weight:400;font-size:1.45rem;letter-spacing:.05em;color:var(--pine);margin-bottom:10px;line-height:1.4}
+.post-card p{font-size:.92rem;color:var(--charcoal);opacity:.82;flex:1}
+.empty{text-align:center;color:var(--sage);padding:90px 20px}
+.empty .mark{width:74px;height:74px;color:var(--divider);margin:0 auto 22px}
+.empty p{font-family:var(--serif);font-style:italic;font-size:1.3rem;margin-bottom:6px}
+
+/* article */
+.article{max-width:760px;margin:0 auto}
+.article .back{font-family:var(--label);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sage);cursor:pointer;margin-bottom:34px;display:inline-block}
+.article .back:hover{color:var(--pine)}
+.article .a-place{font-family:var(--label);letter-spacing:.22em;text-transform:uppercase;font-size:.74rem;color:var(--gold);text-align:center;margin-bottom:14px}
+.article h1.a-title{font-family:var(--tc);font-weight:300;font-size:clamp(2rem,5vw,2.9rem);letter-spacing:.06em;color:var(--pine);text-align:center;line-height:1.45;margin:0 auto 16px}
+.article .a-date{font-family:var(--serif);font-style:italic;font-size:1.1rem;color:var(--sage);text-align:center}
+.article .a-divider{width:50px;height:1px;background:var(--gold);margin:30px auto 44px}
+.article .a-cover{width:100%;max-height:460px;object-fit:cover;margin-bottom:44px}
+.article .a-content{font-size:1.08rem;line-height:2;color:var(--charcoal)}
+.article .a-content p{margin-bottom:26px;white-space:pre-wrap}
+.article .a-content img{width:100%;margin:14px 0 30px}
+.article .a-actions{margin-top:54px;padding-top:28px;border-top:1px solid var(--divider);display:flex;gap:12px;justify-content:center}
+
+/* editor */
+.editor{max-width:760px;margin:0 auto}
+.editor h2{font-family:var(--tc);font-weight:300;font-size:2rem;color:var(--pine);letter-spacing:.08em;margin-bottom:30px;text-align:center}
+.field{margin-bottom:22px}
+.field label{display:block;font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;color:var(--sage);margin-bottom:8px}
+.field input,.field textarea{width:100%;padding:13px 16px;border:1px solid var(--divider);background:#fff;font-size:1rem;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--gold)}
+.field textarea.content-area{min-height:340px;resize:vertical;line-height:1.9}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.field-row{grid-template-columns:1fr}}
+.hint{font-size:.78rem;color:var(--sage);margin-top:6px;line-height:1.6}
+.cover-preview{width:100%;height:200px;object-fit:cover;border:1px solid var(--divider);margin-top:10px;display:none}
+.editor-actions{display:flex;gap:12px;margin-top:34px}
+.editor-actions button{flex:1;padding:14px;font-size:.8rem;text-transform:uppercase}
+.inline-imgs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.inline-imgs .thumb{position:relative;width:72px;height:72px}
+.inline-imgs .thumb img{width:100%;height:100%;object-fit:cover;border:1px solid var(--divider)}
+.inline-imgs .thumb button{position:absolute;top:-6px;right:-6px;background:var(--pine);color:#fff;width:20px;height:20px;border-radius:50%;font-size:.7rem;line-height:1}
+
+footer{background:var(--charcoal);color:rgba(244,239,230,.55);text-align:center;padding:40px;font-family:var(--label);letter-spacing:.22em;font-size:.72rem;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="top-rule"></div>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="pine">
+  <circle cx="50" cy="52" r="42" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="50" cy="52" r="38" fill="none" stroke="currentColor" stroke-width=".8"/>
+  <line x1="47" y1="26" x2="53" y2="26" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="43" y1="36" x2="57" y2="36" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="39" y1="46" x2="61" y2="46" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="35" y1="57" x2="65" y2="57" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="50" y1="57" x2="50" y2="72" stroke="currentColor" stroke-width="2.4"/>
+  <line x1="44" y1="72" x2="56" y2="72" stroke="currentColor" stroke-width="2.4"/>
+</g>
+</defs></svg>
+
+<header>
+  <div class="brand" onclick="showList()">
+    <svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
+    <h1>璟松 · 旅遊日誌<small>Jing Song Journal</small></h1>
+  </div>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="itinerary.html">行程規劃</a>
+    <a href="journal.html" class="active">旅遊日誌</a>
+  </nav>
+</header>
+
+<div class="wrap" id="view"></div>
+
+<footer>璟松 · JING SONG · 為自己而旅行</footer>
+
+<input type="file" id="coverFile" accept="image/*" style="display:none">
+<input type="file" id="inlineFile" accept="image/*" multiple style="display:none">
+<input type="file" id="importFile" accept=".json" style="display:none">
+
+<script>
+const KEY='jingsong_journal_v1';
+let posts=load();
+let draftImgs=[]; let draftCover='';
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(posts))}catch(e){alert('儲存空間已滿（照片佔用較多）。建議：先「匯出備份」，或減少單篇照片數量。')}}
+function uid(){return 'p'+Date.now()+Math.floor(Math.random()*999)}
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00');return`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`}
+function fmtLong(s){if(!s)return'';const d=new Date(s+'T00:00');return`${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日`}
+
+const V=()=>document.getElementById('view');
+
+function showList(){
+  let body;
+  if(posts.length===0){
+    body=`<div class="empty"><svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
+      <p>還沒有任何旅遊記錄</p>
+      <div style="margin-top:20px"><button class="btn-pine" onclick="showEditor()">＋ 寫下第一篇</button></div></div>`;
+  }else{
+    const sorted=[...posts].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    body=`<div class="grid">`+sorted.map(p=>`
+      <div class="post-card" onclick="showArticle('${p.id}')">
+        <div class="cover" style="${p.cover?`background-image:url('${p.cover}')`:''}">
+          ${p.date?`<span class="date-tag">${fmtDate(p.date)}</span>`:''}
+        </div>
+        <div class="body">
+          ${p.place?`<div class="place">${esc(p.place)}</div>`:''}
+          <h3>${esc(p.title)}</h3>
+          <p>${esc((p.content||'').slice(0,80))}${(p.content||'').length>80?'…':''}</p>
+        </div>
+      </div>`).join('')+`</div>`;
+  }
+  V().innerHTML=`
+    <div class="intro">
+      <span class="label">Travel Journal</span>
+      <h2>我們的旅遊記錄</h2>
+      <div class="line"></div>
+    </div>
+    <div class="toolbar">
+      <button class="btn-pine" onclick="showEditor()">＋ 寫新的一篇</button>
+      <div class="util">
+        <button class="btn-line" onclick="exportData()">匯出備份</button>
+        <button class="btn-line" onclick="document.getElementById('importFile').click()">匯入備份</button>
+      </div>
+    </div>${body}`;
+}
+
+function showArticle(id){
+  const p=posts.find(x=>x.id===id);if(!p)return showList();
+  const paras=(p.content||'').split(/\n\n+/).map(t=>`<p>${esc(t)}</p>`).join('');
+  const imgs=(p.images||[]).map(src=>`<img src="${src}" alt="">`).join('');
+  V().innerHTML=`<div class="article">
+    <span class="back" onclick="showList()">← 回到所有記錄</span>
+    ${p.place?`<div class="a-place">${esc(p.place)}</div>`:''}
+    <h1 class="a-title">${esc(p.title)}</h1>
+    ${p.date?`<div class="a-date">${fmtLong(p.date)}</div>`:''}
+    <div class="a-divider"></div>
+    ${p.cover?`<img class="a-cover" src="${p.cover}" alt="">`:''}
+    <div class="a-content">${paras}${imgs}</div>
+    <div class="a-actions">
+      <button class="btn-line" onclick="showEditor('${p.id}')">編輯</button>
+      <button class="btn-line" style="border-color:#caa;color:#a55" onclick="delPost('${p.id}')">刪除</button>
+    </div>
+  </div>`;
+  window.scrollTo(0,0);
+}
+
+let editId=null;
+function showEditor(id){
+  editId=id||null;
+  const p=id?posts.find(x=>x.id===id):null;
+  draftCover=p?.cover||''; draftImgs=[...(p?.images||[])];
+  V().innerHTML=`<div class="editor">
+    <h2>${id?'編輯記錄':'寫新的一篇'}</h2>
+    <div class="field"><label>標題</label><input id="fTitle" placeholder="例：京都，那場剛好的秋雨" value="${esc(p?.title||'')}"></div>
+    <div class="field-row">
+      <div class="field"><label>日期</label><input type="date" id="fDate" value="${p?.date||''}"></div>
+      <div class="field"><label>地點</label><input id="fPlace" placeholder="例：日本 · 京都" value="${esc(p?.place||'')}"></div>
+    </div>
+    <div class="field">
+      <label>封面照片</label>
+      <button class="btn-line" type="button" onclick="document.getElementById('coverFile').click()">選擇封面照片</button>
+      <img class="cover-preview" id="coverPrev" style="${draftCover?'display:block':''}" src="${draftCover}">
+      <div class="hint">建議用橫式照片，會顯示在卡片與文章頂部。</div>
+    </div>
+    <div class="field"><label>內文</label>
+      <textarea class="content-area" id="fContent" placeholder="記下這趟旅程的故事、心情與細節…&#10;&#10;（段落之間空一行，會自動分段）">${esc(p?.content||'')}</textarea>
+    </div>
+    <div class="field">
+      <label>內文照片（可多張）</label>
+      <button class="btn-line" type="button" onclick="document.getElementById('inlineFile').click()">＋ 加入照片</button>
+      <div class="inline-imgs" id="inlinePrev"></div>
+      <div class="hint">照片會依序顯示在文章內文下方。</div>
+    </div>
+    <div class="editor-actions">
+      <button class="btn-line" onclick="${id?`showArticle('${id}')`:'showList()'}">取消</button>
+      <button class="btn-gold" onclick="savePost()">儲存記錄</button>
+    </div>
+  </div>`;
+  renderInline();
+  window.scrollTo(0,0);
+}
+
+function renderInline(){
+  const el=document.getElementById('inlinePrev');if(!el)return;
+  el.innerHTML=draftImgs.map((src,i)=>`<div class="thumb"><img src="${src}"><button onclick="draftImgs.splice(${i},1);renderInline()">×</button></div>`).join('');
+}
+
+function resizeImg(file,maxW,cb){
+  const r=new FileReader();
+  r.onload=()=>{const img=new Image();img.onload=()=>{
+    const scale=Math.min(1,maxW/img.width);
+    const c=document.createElement('canvas');c.width=img.width*scale;c.height=img.height*scale;
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    cb(c.toDataURL('image/jpeg',0.82));
+  };img.src=r.result};
+  r.readAsDataURL(file);
+}
+
+document.getElementById('coverFile').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  resizeImg(f,1400,d=>{draftCover=d;const pv=document.getElementById('coverPrev');pv.src=d;pv.style.display='block'});
+  e.target.value='';
+});
+document.getElementById('inlineFile').addEventListener('change',e=>{
+  [...e.target.files].forEach(f=>resizeImg(f,1400,d=>{draftImgs.push(d);renderInline()}));
+  e.target.value='';
+});
+
+function savePost(){
+  const title=document.getElementById('fTitle').value.trim();
+  if(!title){alert('請輸入標題');return}
+  const data={title,date:document.getElementById('fDate').value,
+    place:document.getElementById('fPlace').value.trim(),
+    content:document.getElementById('fContent').value.trim(),
+    cover:draftCover,images:[...draftImgs]};
+  if(editId){Object.assign(posts.find(x=>x.id===editId),data);}
+  else{posts.push({id:uid(),...data});}
+  save();showArticle(editId||posts[posts.length-1].id);
+}
+function delPost(id){if(!confirm('確定刪除這篇記錄？無法復原。'))return;posts=posts.filter(x=>x.id!==id);save();showList();}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(posts,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='璟松旅遊日誌備份_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+}
+document.getElementById('importFile').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d))throw 0;
+    if(confirm('匯入將覆蓋目前所有記錄，確定？')){posts=d;save();showList();}
+  }catch(err){alert('檔案格式錯誤')}};r.readAsText(f);e.target.value='';
+});
+
+// seed example
+if(posts.length===0){
+  posts=[{id:uid(),title:'京都，那場剛好的秋雨',date:'2026-11-16',place:'日本 · 京都',
+    content:'抵達京都的第二天，天空飄起細雨。\n\n原本擔心會壞了行程，沒想到雨中的嵐山竹林反而最美——遊客散去，只剩竹葉上的水珠，和踩在石板上的腳步聲。我們在天龍寺的迴廊坐了很久，誰也沒說話，就看著庭園裡的楓葉一片片紅。\n\n午後雨停，陽光從雲縫灑下來。那一刻忽然覺得，旅行最好的部分，從來都不是計畫之內的。',
+    cover:'',images:[]}];
+  save();
+}
+showList();
+</script>
+</body>
+</html>

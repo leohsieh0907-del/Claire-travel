@@ -84,6 +84,20 @@ section{padding:130px 0}
 .jcard p{font-weight:300;font-size:.95rem;color:var(--charcoal)}
 @media(max-width:760px){.journeys-grid{grid-template-columns:1fr}}
 
+/* ── tools ── */
+.tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.tcard{background:#fff;border:1px solid var(--divider);overflow:hidden;transition:transform .4s,box-shadow .4s;display:flex;flex-direction:column}
+.tcard:hover{transform:translateY(-8px);box-shadow:0 26px 56px rgba(28,58,45,.15)}
+.tcard .ph{height:200px;background:linear-gradient(135deg,var(--pine),var(--sage));display:flex;align-items:center;justify-content:center}
+.tcard .ph.alt{background:linear-gradient(135deg,#3a5a48,var(--gold))}
+.tcard .ph .en{font-family:var(--label);letter-spacing:.42em;font-size:1rem;color:rgba(244,239,230,.92);text-transform:uppercase;padding-left:.42em}
+.tcard .body{padding:34px 34px 38px;flex:1;display:flex;flex-direction:column}
+.tcard h3{font-family:var(--tc);font-weight:400;font-size:1.7rem;letter-spacing:.1em;color:var(--pine);margin-bottom:14px}
+.tcard p{font-weight:300;font-size:.98rem;color:var(--charcoal);flex:1;line-height:1.9}
+.tcard .enter{font-family:var(--label);letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;color:var(--gold);margin-top:24px;transition:letter-spacing .3s}
+.tcard:hover .enter{letter-spacing:.28em}
+@media(max-width:760px){.tools-grid{grid-template-columns:1fr}}
+
 /* ── quote ── */
 .quote{background:#EDE6D8;text-align:center}
 .quote blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4.5vw,2.7rem);font-weight:400;color:var(--pine);max-width:880px;margin:0 auto;line-height:1.5}
@@ -138,10 +152,10 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
     </div>
     <div class="nav-links">
       <a href="#philosophy">理念</a>
-      <a href="#journeys">旅程</a>
-      <a href="#process">規劃</a>
-      <a href="itinerary.html">行程系統</a>
-      <a href="#contact">啟程</a>
+      <a href="#tools">功能</a>
+      <a href="itinerary.html">行程規劃</a>
+      <a href="journal.html">旅遊日誌</a>
+      <a href="#contact">開始</a>
     </div>
   </div>
 </nav>
@@ -151,8 +165,8 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
   <svg class="mark-lg" viewBox="0 0 100 100" style="color:var(--pine)"><use href="#pine"/></svg>
   <h1>璟松</h1>
   <div class="en">JING SONG TRAVEL</div>
-  <div class="tagline">為自己而旅行</div>
-  <div class="sub">Travel for the self. Nowhere to arrive. Everywhere to be.</div>
+  <div class="tagline">我們家的旅行，從規劃到回憶</div>
+  <div class="sub">Plan the journey. Keep the memory.</div>
   <div class="scroll-hint">Scroll</div>
 </header>
 
@@ -184,31 +198,31 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
   </div>
 </section>
 
-<!-- JOURNEYS -->
-<section class="journeys" id="journeys">
+<!-- TOOLS -->
+<section class="journeys" id="tools">
   <div class="wrap">
     <div class="sec-head">
-      <span class="label">Journeys</span>
-      <h2>精選旅程</h2>
+      <span class="label">Plan &amp; Remember</span>
+      <h2>規劃，然後記得</h2>
       <div class="line"></div>
     </div>
-    <div class="journeys-grid">
-      <div class="jcard">
-        <div class="ph"><span class="num">01</span><span class="en">Japan · Deep</span></div>
-        <div class="body"><h3>日本 · 四季深度</h3><p>京都的庭園、北海道的雪原、瀨戶內海的藝術島嶼。在熟悉之地，發現未知。</p></div>
-      </div>
-      <div class="jcard">
-        <div class="ph"><span class="num">02</span><span class="en">Europe · Slow</span></div>
-        <div class="body"><h3>歐洲 · 緩行小鎮</h3><p>避開首都的擁擠，走進阿爾卑斯山腳、托斯卡尼丘陵、葡萄牙海岸的時光裡。</p></div>
-      </div>
-      <div class="jcard">
-        <div class="ph"><span class="num">03</span><span class="en">Asia · Hidden</span></div>
-        <div class="body"><h3>亞洲 · 隱秘角落</h3><p>不丹的山徑、越南中部的古城、印尼的火山與梯田。在亞洲，找回沉靜。</p></div>
-      </div>
-      <div class="jcard">
-        <div class="ph"><span class="num">04</span><span class="en">Custom · Yours</span></div>
-        <div class="body"><h3>專屬 · 量身訂製</h3><p>沒有既定路線。告訴我你想要的旅行樣貌，我為你規劃獨一無二的旅程。</p></div>
-      </div>
+    <div class="tools-grid">
+      <a class="tcard" href="itinerary.html">
+        <div class="ph"><span class="en">Itinerary</span></div>
+        <div class="body">
+          <h3>行程規劃</h3>
+          <p>出發之前，把每一天排好。景點、時間、交通與備註，一目了然，還能列印成精緻行程表帶著走。</p>
+          <span class="enter">進入規劃 →</span>
+        </div>
+      </a>
+      <a class="tcard" href="journal.html">
+        <div class="ph alt"><span class="en">Journal</span></div>
+        <div class="body">
+          <h3>旅遊日誌</h3>
+          <p>回來之後，把故事寫下來。照片、心情與那些計畫之外的瞬間，都收進屬於我們家的旅行回憶裡。</p>
+          <span class="enter">翻開日誌 →</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -225,15 +239,15 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
 <section class="process" id="process">
   <div class="wrap">
     <div class="sec-head">
-      <span class="label">Process</span>
-      <h2>四步成行</h2>
+      <span class="label">How We Travel</span>
+      <h2>我們這樣旅行</h2>
       <div class="line"></div>
     </div>
     <div class="steps">
-      <div class="step"><div class="ring">壹</div><h3>傾聽</h3><p>了解你的步調、喜好與這趟旅行真正的渴望。</p></div>
-      <div class="step"><div class="ring">貳</div><h3>構思</h3><p>量身設計路線、住宿與節奏，每個細節為你而選。</p></div>
-      <div class="step"><div class="ring">叁</div><h3>打磨</h3><p>反覆推敲、調整，直到行程如玉石般溫潤無瑕。</p></div>
-      <div class="step"><div class="ring">肆</div><h3>啟程</h3><p>放下一切安排，只需專注於旅途中的每一刻。</p></div>
+      <div class="step"><div class="ring">壹</div><h3>規劃</h3><p>出發前一起排行程，把期待變成一天天的計畫。</p></div>
+      <div class="step"><div class="ring">貳</div><h3>出發</h3><p>帶著行程表上路，也留白給計畫之外的驚喜。</p></div>
+      <div class="step"><div class="ring">叁</div><h3>記錄</h3><p>用照片與文字，留住旅途中每個值得回味的瞬間。</p></div>
+      <div class="step"><div class="ring">肆</div><h3>回味</h3><p>把每趟旅行收進日誌，成為我們家共同的故事。</p></div>
     </div>
   </div>
 </section>
@@ -243,17 +257,17 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
   <div class="wrap">
     <div class="sec-head">
       <span class="label">Begin</span>
-      <h2>開始你的旅程</h2>
+      <h2>下一趟，去哪裡？</h2>
       <div class="line" style="background:var(--gold)"></div>
     </div>
-    <p>每一趟旅行，都從一個念頭開始。<br>把那個念頭交給璟松，讓我陪你把它變成真實的風景。</p>
-    <a href="mailto:hello@jingsong.travel" class="btn">與我聯繫</a>
+    <p>每一趟旅行，都從一個念頭開始。<br>現在就開始規劃，或翻開過往的旅遊日誌。</p>
+    <a href="itinerary.html" class="btn">規劃新行程</a>
   </div>
 </section>
 
 <footer>
   <svg class="fmark" viewBox="0 0 100 100" style="color:var(--gold)"><use href="#pine"/></svg>
-  璟松 · JING SONG · 為自己而旅行 · 2024
+  璟松 · JING SONG · 為自己而旅行 · 2026
 </footer>
 <div class="bottom-rule"></div>
 
