@@ -121,6 +121,9 @@ header nav a:hover,header nav a.active{color:var(--gold)}
 .info-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dotted #e6e0d4}
 .info-link{font-family:var(--label);font-size:.72rem;letter-spacing:.06em;color:var(--pine);border:1px solid var(--divider);padding:6px 12px;transition:all .25s}
 .info-link:hover{border-color:var(--gold);color:var(--gold)}
+.info-card.wide{grid-column:1 / -1;background:#fffdf8;border-color:var(--gold)}
+.info-card.wide ul.two-col{columns:2;column-gap:30px}
+@media(max-width:680px){.info-card.wide ul.two-col{columns:1}}
 /* map */
 .islmap{height:400px;border:1px solid var(--divider);margin-bottom:10px;z-index:0}
 .islmap .leaflet-popup-content{font-family:var(--tc);font-size:.9rem}
@@ -254,6 +257,14 @@ const islands=[
         '那霸有大型醫院，觀光區有診所與藥妝店',
         '⚠️ 務必保「旅平險＋海外醫療險」，日本醫療費高',
         '健保可事後核退部分海外就醫費（需診斷書＋收據）'
+      ],
+      localPicks:[
+        '暖暮拉麵（國際通牧志店）— 九州冠軍豚骨拉麵',
+        '浜の家海鮮（恩納村）— 在地人愛的隱藏海鮮，有包廂',
+        '花人逢 — 半山琉球老屋 Pizza，無敵海景',
+        '豬肉蛋飯糰（牧志市場旁）— 平價排隊小吃',
+        '阿古豬隱家（萬座毛附近）— 阿古豬涮涮鍋',
+        'Teech（南部）— 在地人愛的庭園蕎麥麵'
       ]
     },
     map:{center:[26.45,127.85],zoom:10,pois:[
@@ -350,6 +361,14 @@ const islands=[
         '就醫找國際醫院（BIMC、Siloam）或國際診所',
         '⚠️ 務必保旅平險＋醫療險，備腸胃藥、防蚊液',
         '屬登革熱地區，防蚊與防曬要做足'
+      ],
+      localPicks:[
+        'Seasalt Seminyak — 水明漾海景海鮮餐廳',
+        'Moonlite Kitchen & Bar — 海灘景觀餐廳',
+        '聖猴森林公園（烏布）— 獼猴林，孩子愛',
+        'Campuhan Ridge Walk — 烏布天空步道，免費絕景',
+        'Bali Safari 野生動物園 — 親子必訪',
+        '金巴蘭海鮮燒烤 — 沙灘邊看夕陽吃海鮮'
       ]
     },
     map:{center:[-8.55,115.18],zoom:10,pois:[
@@ -445,6 +464,14 @@ const islands=[
         '普吉有 Bangkok Hospital Phuket 等國際醫院',
         '⚠️ 務必保旅平險＋醫療險，備腸胃藥、防曬、防蚊',
         '7-11 普及，可買水與基本用品'
+      ],
+      localPicks:[
+        'No.6 餐廳（芭東）— 高 CP 人氣，8:30–24:00',
+        '第一海鮮（芭東）— 華人愛的海鮮代煮',
+        'A Blanket & A Pillow（卡塔）— 海景 Cafe',
+        'Naka 週末夜市（普吉鎮）— 最大夜市小吃',
+        '卡塔海灘 — 人少、適合親子踏浪',
+        '富貴飯店（芭東）— 芒果糯米飯與平價泰菜'
       ]
     },
     map:{center:[7.85,98.45],zoom:9,pois:[
@@ -537,6 +564,14 @@ const islands=[
         '島上有診所，重症需轉本島（卡利波／馬尼拉）',
         '⚠️ 務必保旅平險＋醫療險，備暈船藥、防曬、防蚊',
         'ATM 偶爾缺鈔，建議備足現金披索'
+      ],
+      localPicks:[
+        "I Love Backyard BBQ（D'Mall）— 人氣 BBQ 豬肋排，需排隊",
+        'Halo Mango / Jonah\'s — 必喝芒果冰沙',
+        'Coco Mama — 椰子冰淇淋',
+        'Aria Italiana — D\'Mall 義大利餐廳',
+        'CYMA — 希臘料理',
+        '海鮮代煮餐廳 — 市場挑海鮮現煮'
       ]
     },
     map:{center:[11.965,121.928],zoom:13,pois:[
@@ -760,6 +795,7 @@ function infoHTML(n){
       <div class="info-card"><div class="info-h">🚗 交通</div><ul>${list(n.transport)}</ul></div>
       <div class="info-card"><div class="info-h">🍽 用餐</div><ul>${list(n.dining)}</ul></div>
       <div class="info-card"><div class="info-h">🏥 醫療・安全</div><ul>${list(n.medical)}</ul></div>
+      ${n.localPicks?`<div class="info-card wide"><div class="info-h">🌟 在地推薦・真實名店</div><ul class="two-col">${list(n.localPicks)}</ul></div>`:''}
     </div>`;
 }
 
