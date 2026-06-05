@@ -107,6 +107,18 @@ header nav a:hover,header nav a.active{color:var(--gold)}
 .cmp-cost td{font-size:.86rem;padding:5px 0;border-bottom:1px dotted #e6e0d4;color:var(--charcoal)}
 .cmp-cost td:last-child{text-align:right;color:var(--pine);white-space:nowrap;padding-left:10px}
 .cmp-note{font-size:.8rem;color:var(--sage);margin-bottom:36px;line-height:1.7}
+/* info */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:38px}
+@media(max-width:680px){.info-grid{grid-template-columns:1fr}}
+.info-card{background:#fff;border:1px solid var(--divider);padding:20px 22px}
+.info-h{font-family:var(--tc);font-weight:600;font-size:1.08rem;color:var(--pine);letter-spacing:.05em;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f0ece3}
+.info-area{font-size:.9rem;color:var(--gold);margin-bottom:10px;font-weight:400}
+.info-card ul{list-style:none;margin:0}
+.info-card li{font-size:.9rem;line-height:1.75;margin-bottom:8px;padding-left:16px;position:relative;color:var(--charcoal)}
+.info-card li::before{content:'·';position:absolute;left:3px;color:var(--sage);font-weight:700}
+.info-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dotted #e6e0d4}
+.info-link{font-family:var(--label);font-size:.72rem;letter-spacing:.06em;color:var(--pine);border:1px solid var(--divider);padding:6px 12px;transition:all .25s}
+.info-link:hover{border-color:var(--gold);color:var(--gold)}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap}
 .btn{padding:16px 34px;font-size:.8rem;text-transform:uppercase;letter-spacing:.16em}
 .btn-gold{background:var(--gold);color:var(--pine)}
@@ -573,6 +585,23 @@ function compareHTML(c){
     <p class="cmp-note">${esc(c.note)}</p>`;
 }
 
+function infoHTML(n){
+  const list=a=>a.map(x=>`<li>${esc(x)}</li>`).join('');
+  const plat=(n.hotel.platforms||[]).map(p=>`<a href="${p.url}" target="_blank" rel="noopener" class="info-link">${esc(p.name)} ↗</a>`).join('');
+  return `<h4 style="margin-top:8px">自由行實用資訊</h4>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-h">🏨 飯店・訂房</div>
+        ${n.hotel.area?`<p class="info-area">${esc(n.hotel.area)}</p>`:''}
+        <ul>${list(n.hotel.tips)}</ul>
+        ${plat?`<div class="info-links">${plat}</div>`:''}
+      </div>
+      <div class="info-card"><div class="info-h">🚗 交通</div><ul>${list(n.transport)}</ul></div>
+      <div class="info-card"><div class="info-h">🍽 用餐</div><ul>${list(n.dining)}</ul></div>
+      <div class="info-card"><div class="info-h">🏥 醫療・安全</div><ul>${list(n.medical)}</ul></div>
+    </div>`;
+}
+
 function showDetail(key){
   const i=islands.find(x=>x.key===key);if(!i)return showGrid();
   V().innerHTML=`<div class="detail">
@@ -591,6 +620,7 @@ function showDetail(key){
     <ul class="hl">${i.highlights.map(h=>`<li>${esc(h)}</li>`).join('')}</ul>
     <div class="fambox"><div class="k">為什麼適合你們家</div><p>${esc(i.family)}</p></div>
     ${i.compare?compareHTML(i.compare):''}
+    ${i.info?infoHTML(i.info):''}
     <div class="cta-row">
       ${i.template
         ? `<button class="btn btn-gold" onclick="loadTemplate('${i.key}')">＋ 載入這份行程到「行程規劃」</button>
