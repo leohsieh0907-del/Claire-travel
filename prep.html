@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>璟松 · 出發準備</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="璟松">
+<meta name="theme-color" content="#1C3A2D">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--pine:#1C3A2D;--gold:#C4A35A;--sage:#8A9E8F;--charcoal:#2C2C2C;--ivory:#F4EFE6;--divider:#D2CABE;
+--serif:'Cormorant Garamond',serif;--tc:'Noto Serif TC',serif;--label:'Jura',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--tc);color:var(--charcoal);background:var(--ivory);line-height:1.7;font-weight:300}
+.label{font-family:var(--label);letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--sage)}
+button{font-family:var(--label);cursor:pointer;border:none;letter-spacing:.08em;transition:all .25s}
+input{font-family:var(--tc);font-weight:300;color:var(--charcoal)}
+a{color:inherit;text-decoration:none}
+.top-rule{height:5px;background:var(--gold)}
+header{background:var(--pine);color:var(--ivory);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+header .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
+header .mark{width:36px;height:36px;color:var(--gold)}
+header h1{font-family:var(--tc);font-weight:400;font-size:1.32rem;letter-spacing:.16em}
+header h1 small{font-family:var(--label);letter-spacing:.2em;font-size:.68rem;color:var(--gold);display:block;text-transform:uppercase;margin-top:2px}
+header nav{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+header nav a{font-family:var(--label);letter-spacing:.14em;font-size:.74rem;text-transform:uppercase;color:rgba(244,239,230,.8)}
+header nav a:hover,header nav a.active{color:var(--gold)}
+.wrap{max-width:920px;margin:0 auto;padding:48px 40px 90px}
+@media(max-width:640px){.wrap{padding:32px 20px 70px}}
+.intro{text-align:center;margin-bottom:40px}
+.intro .label{display:block;margin-bottom:14px}
+.intro h2{font-family:var(--tc);font-weight:300;font-size:clamp(1.9rem,5vw,2.6rem);letter-spacing:.14em;color:var(--pine)}
+.intro .line{width:46px;height:1px;background:var(--gold);margin:22px auto 0}
+.tabs{display:flex;justify-content:center;gap:0;margin-bottom:38px;border-bottom:1px solid var(--divider)}
+.tab{font-family:var(--label);letter-spacing:.14em;text-transform:uppercase;font-size:.82rem;color:var(--sage);padding:14px 30px;border-bottom:2px solid transparent;margin-bottom:-1px;background:none}
+.tab.active{color:var(--pine);border-bottom-color:var(--gold)}
+.panel{display:none}.panel.active{display:block}
+/* packing */
+.pk-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.pk-prog{font-family:var(--label);font-size:.82rem;color:var(--sage);letter-spacing:.08em}
+.pk-prog b{color:var(--pine);font-size:1.1rem}
+.btn-line{background:transparent;border:1px solid var(--divider);color:var(--sage);padding:9px 18px;font-size:.72rem;text-transform:uppercase}
+.btn-line:hover{border-color:var(--sage);color:var(--pine)}
+.cat{margin-bottom:30px}
+.cat-h{font-family:var(--tc);font-weight:600;font-size:1.12rem;color:var(--pine);letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.cat-h .ct{font-family:var(--label);font-size:.7rem;color:var(--sage);font-weight:400;letter-spacing:.05em}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:560px){.items{grid-template-columns:1fr}}
+.item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fff;border:1px solid var(--divider);font-size:.92rem}
+.item.done{background:#EDE6D8;color:var(--sage)}
+.item.done .txt{text-decoration:line-through}
+.item input[type=checkbox]{width:17px;height:17px;accent-color:var(--pine);cursor:pointer;flex-shrink:0}
+.item .txt{flex:1;cursor:pointer}
+.item .rm{background:none;color:var(--divider);font-size:1.1rem;line-height:1;padding:0 2px}
+.item .rm:hover{color:#a55}
+.add-row{display:flex;gap:8px;margin-top:10px}
+.add-row input{flex:1;padding:9px 12px;border:1px solid var(--divider);background:#fff;font-size:.9rem;outline:none}
+.add-row input:focus{border-color:var(--gold)}
+.add-row button{background:var(--pine);color:var(--ivory);padding:0 18px;font-size:.74rem;text-transform:uppercase}
+/* budget */
+.bd-bar{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-bottom:26px;padding-bottom:22px;border-bottom:2px solid var(--pine)}
+.bd-total{flex:1}
+.bd-total .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;color:var(--sage);margin-bottom:4px}
+.bd-total .v{font-family:var(--tc);font-size:2.1rem;color:var(--pine);font-weight:400}
+.bd-per{text-align:right}
+.bd-per .k{font-family:var(--label);text-transform:uppercase;letter-spacing:.1em;font-size:.66rem;color:var(--sage);margin-bottom:4px}
+.bd-per .v{font-family:var(--tc);font-size:1.4rem;color:var(--gold)}
+.bd-per input{width:56px;padding:4px 8px;border:1px solid var(--divider);text-align:center;font-size:1rem;margin:0 4px}
+.bd-list{margin-bottom:16px}
+.bd-item{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:11px 14px;background:#fff;border:1px solid var(--divider);margin-bottom:6px}
+.bd-item .nm{font-size:.95rem}
+.bd-item .amt{font-family:var(--tc);color:var(--pine);white-space:nowrap}
+.bd-item .rm{background:none;color:var(--divider);font-size:1.1rem;padding:0 4px}
+.bd-item .rm:hover{color:#a55}
+.bd-add{display:grid;grid-template-columns:1fr 130px auto;gap:8px;margin-top:14px}
+@media(max-width:560px){.bd-add{grid-template-columns:1fr;}}
+.bd-add input{padding:11px 12px;border:1px solid var(--divider);background:#fff;font-size:.92rem;outline:none}
+.bd-add input:focus{border-color:var(--gold)}
+.bd-add button{background:var(--gold);color:var(--pine);padding:11px;font-size:.76rem;text-transform:uppercase}
+.hint{font-size:.82rem;color:var(--sage);margin-top:18px;line-height:1.7}
+.empty{text-align:center;color:var(--sage);padding:50px 20px;font-family:var(--serif);font-style:italic;font-size:1.2rem}
+footer{background:var(--charcoal);color:rgba(244,239,230,.55);text-align:center;padding:38px;font-family:var(--label);letter-spacing:.2em;font-size:.72rem;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="top-rule"></div>
+<svg width="0" height="0" style="position:absolute"><defs>
+<g id="pine">
+<circle cx="50" cy="52" r="42" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="50" cy="52" r="38" fill="none" stroke="currentColor" stroke-width=".8"/>
+<line x1="47" y1="26" x2="53" y2="26" stroke="currentColor" stroke-width="2.4"/>
+<line x1="43" y1="36" x2="57" y2="36" stroke="currentColor" stroke-width="2.4"/>
+<line x1="39" y1="46" x2="61" y2="46" stroke="currentColor" stroke-width="2.4"/>
+<line x1="35" y1="57" x2="65" y2="57" stroke="currentColor" stroke-width="2.4"/>
+<line x1="50" y1="57" x2="50" y2="72" stroke="currentColor" stroke-width="2.4"/>
+<line x1="44" y1="72" x2="56" y2="72" stroke="currentColor" stroke-width="2.4"/>
+</g></defs></svg>
+
+<header>
+  <div class="brand" onclick="location.href='index.html'">
+    <svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
+    <h1>璟松 · 出發準備<small>Jing Song Prep</small></h1>
+  </div>
+  <nav>
+    <a href="index.html">首頁</a>
+    <a href="destinations.html">目的地</a>
+    <a href="itinerary.html">行程規劃</a>
+    <a href="prep.html" class="active">出發準備</a>
+    <a href="journal.html">旅遊日誌</a>
+  </nav>
+</header>
+
+<div class="wrap">
+  <div class="intro">
+    <span class="label">Before You Go</span>
+    <h2>出發準備</h2>
+    <div class="line"></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('packing')">🧳 行李清單</button>
+    <button class="tab" onclick="switchTab('budget')">💰 旅遊預算</button>
+  </div>
+  <div class="panel active" id="panel-packing"></div>
+  <div class="panel" id="panel-budget"></div>
+</div>
+<footer>璟松 · JING SONG · 為自己而旅行</footer>
+
+<script>
+const PK_KEY='jingsong_packing_v1', BD_KEY='jingsong_budget_v1';
+
+const DEFAULT_PACKING=[
+  {cat:'證件・財務',items:['護照（效期滿6個月）','簽證／落地簽','機票／訂房確認單','現金與外幣','信用卡','旅平險＋醫療險保單','駕照日文譯本（自駕）']},
+  {cat:'衣物・配件',items:['泳衣／水母衣','海灘拖鞋','防曬薄外套','換洗衣物','帽子','太陽眼鏡']},
+  {cat:'3C・電子',items:['手機＋充電線','行動電源','萬國轉接插頭','相機／記憶卡','網卡／漫遊']},
+  {cat:'盥洗・保養',items:['牙刷牙膏','防曬乳','保養／化妝品','個人盥洗用品']},
+  {cat:'藥品・健康',items:['暈船／暈車藥','腸胃藥','感冒藥','OK繃／外傷藥','個人慢性藥','防蚊液']},
+  {cat:'親子・兒童',items:['小孩換洗衣物','兒童藥品','零食','安撫玩具／平板','兒童防曬']},
+  {cat:'海島專用',items:['浮潛面鏡／呼吸管','防水袋／防水手機套','夾鏈袋','輕便雨衣']}
+];
+
+let packing=loadPacking();
+function loadPacking(){try{const d=JSON.parse(localStorage.getItem(PK_KEY));if(d&&d.length)return d}catch(e){}
+  return DEFAULT_PACKING.map(c=>({cat:c.cat,items:c.items.map(t=>({t,done:false}))}));}
+function savePacking(){localStorage.setItem(PK_KEY,JSON.stringify(packing))}
+
+function renderPacking(){
+  let total=0,done=0;
+  packing.forEach(c=>c.items.forEach(i=>{total++;if(i.done)done++}));
+  let html=`<div class="pk-top">
+    <div class="pk-prog">已打包 <b>${done}</b> / ${total} 項</div>
+    <button class="btn-line" onclick="resetPacking()">重設為預設清單</button>
+  </div>`;
+  packing.forEach((c,ci)=>{
+    html+=`<div class="cat"><div class="cat-h">${esc(c.cat)} <span class="ct">${c.items.filter(i=>i.done).length}/${c.items.length}</span></div><div class="items">`;
+    c.items.forEach((i,ii)=>{
+      html+=`<label class="item ${i.done?'done':''}">
+        <input type="checkbox" ${i.done?'checked':''} onchange="togglePk(${ci},${ii})">
+        <span class="txt">${esc(i.t)}</span>
+        <button class="rm" onclick="rmPk(event,${ci},${ii})">×</button>
+      </label>`;
+    });
+    html+=`</div><div class="add-row"><input id="pkadd${ci}" placeholder="新增項目…" onkeydown="if(event.key==='Enter')addPk(${ci})"><button onclick="addPk(${ci})">＋</button></div></div>`;
+  });
+  document.getElementById('panel-packing').innerHTML=html;
+}
+function togglePk(ci,ii){packing[ci].items[ii].done=!packing[ci].items[ii].done;savePacking();renderPacking()}
+function rmPk(e,ci,ii){e.preventDefault();packing[ci].items.splice(ii,1);savePacking();renderPacking()}
+function addPk(ci){const el=document.getElementById('pkadd'+ci);const v=el.value.trim();if(!v)return;packing[ci].items.push({t:v,done:false});savePacking();renderPacking()}
+function resetPacking(){if(!confirm('重設為預設清單？目前的勾選與自訂項目會清除。'))return;localStorage.removeItem(PK_KEY);packing=loadPacking();savePacking();renderPacking()}
+
+// budget
+let budget=loadBudget();
+function loadBudget(){try{return JSON.parse(localStorage.getItem(BD_KEY))||{items:[],people:7}}catch(e){return {items:[],people:7}}}
+function saveBudget(){localStorage.setItem(BD_KEY,JSON.stringify(budget))}
+function renderBudget(){
+  const total=budget.items.reduce((s,i)=>s+(+i.amt||0),0);
+  const ppl=budget.people||1;
+  const per=ppl>0?Math.round(total/ppl):0;
+  let html=`<div class="bd-bar">
+    <div class="bd-total"><div class="k">預算總計</div><div class="v">NT$ ${total.toLocaleString()}</div></div>
+    <div class="bd-per"><div class="k">每人 ÷ <input type="number" min="1" value="${ppl}" onchange="setPeople(this.value)"> 人</div><div class="v">NT$ ${per.toLocaleString()}</div></div>
+  </div>`;
+  if(budget.items.length===0){html+=`<div class="empty">還沒有任何費用項目<br>在下方加入第一筆。</div>`;}
+  else{html+=`<div class="bd-list">`+budget.items.map((i,ix)=>`
+    <div class="bd-item"><span class="nm">${esc(i.nm)}</span><span class="amt">NT$ ${(+i.amt||0).toLocaleString()}</span><button class="rm" onclick="rmBd(${ix})">×</button></div>`).join('')+`</div>`;}
+  html+=`<div class="bd-add">
+    <input id="bdnm" placeholder="費用項目（例：機票）" onkeydown="if(event.key==='Enter')document.getElementById('bdamt').focus()">
+    <input id="bdamt" type="number" placeholder="金額 NT$" onkeydown="if(event.key==='Enter')addBd()">
+    <button onclick="addBd()">＋ 加入</button>
+  </div>
+  <p class="hint">💡 小技巧：可從「目的地」頁的自由行費用明細，把機票、住宿、餐飲等逐項填進來，自動算出總額與每人分攤。</p>`;
+  document.getElementById('panel-budget').innerHTML=html;
+}
+function addBd(){const nm=document.getElementById('bdnm').value.trim();const amt=+document.getElementById('bdamt').value;
+  if(!nm){alert('請輸入費用項目');return}budget.items.push({nm,amt:amt||0});saveBudget();renderBudget();
+  document.getElementById('bdnm').focus();}
+function rmBd(ix){budget.items.splice(ix,1);saveBudget();renderBudget()}
+function setPeople(v){budget.people=Math.max(1,+v||1);saveBudget();renderBudget()}
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(t==='packing')===(i===0)));
+  document.getElementById('panel-packing').classList.toggle('active',t==='packing');
+  document.getElementById('panel-budget').classList.toggle('active',t==='budget');
+}
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+renderPacking();renderBudget();
+</script>
+</body>
+</html>

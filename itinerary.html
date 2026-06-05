@@ -83,7 +83,8 @@ header .actions{display:flex;gap:12px;flex-wrap:wrap}
 .event{display:grid;grid-template-columns:90px 1fr auto;gap:18px;background:#fff;border:1px solid var(--divider);padding:16px 18px;margin-bottom:10px;align-items:start}
 .event .time{font-family:var(--label);font-weight:500;color:var(--pine);font-size:.9rem;letter-spacing:.05em;padding-top:2px}
 .event .info h4{font-weight:600;font-size:1.05rem;color:var(--charcoal);letter-spacing:.04em}
-.event .info .place{font-size:.84rem;color:var(--sage);margin-top:2px}
+.event .info .place{font-size:.84rem;color:var(--sage);margin-top:2px;display:inline-block;text-decoration:none;transition:color .2s}
+a.place:hover{color:var(--gold)}
 .event .info .note{font-size:.86rem;color:var(--charcoal);margin-top:6px;opacity:.85;white-space:pre-wrap}
 .event .del{background:transparent;color:var(--divider);font-size:1.2rem;line-height:1;padding:0 6px}
 .event .del:hover{color:#a33}
@@ -145,6 +146,7 @@ header .actions{display:flex;gap:12px;flex-wrap:wrap}
   </div>
   <div class="actions">
     <a class="btn btn-ghost" href="destinations.html">目的地</a>
+    <a class="btn btn-ghost" href="prep.html">出發準備</a>
     <button class="btn btn-ghost" onclick="exportData()">匯出備份</button>
     <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">匯入備份</button>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
@@ -295,7 +297,7 @@ function render(){
       html+=`<div class="event">
         <div class="time">${esc(e.time)||'—'}</div>
         <div class="info"><h4>${esc(e.title)}</h4>
-          ${e.place?`<div class="place">⌖ ${esc(e.place)}</div>`:''}
+          ${e.place?`<a class="place" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(e.place)}" target="_blank" rel="noopener">⌖ ${esc(e.place)} ↗</a>`:''}
           ${e.note?`<div class="note">${esc(e.note)}</div>`:''}</div>
         <button class="del" onclick="delEvent(${i},${j})">×</button>
       </div>`;
