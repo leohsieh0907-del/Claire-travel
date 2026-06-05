@@ -121,6 +121,10 @@ header nav a:hover,header nav a.active{color:var(--gold)}
 .info-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dotted #e6e0d4}
 .info-link{font-family:var(--label);font-size:.72rem;letter-spacing:.06em;color:var(--pine);border:1px solid var(--divider);padding:6px 12px;transition:all .25s}
 .info-link:hover{border-color:var(--gold);color:var(--gold)}
+/* map */
+.islmap{height:400px;border:1px solid var(--divider);margin-bottom:10px;z-index:0}
+.islmap .leaflet-popup-content{font-family:var(--tc);font-size:.9rem}
+@media(max-width:640px){.islmap{height:320px}}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap}
 .btn{padding:16px 34px;font-size:.8rem;text-transform:uppercase;letter-spacing:.16em}
 .btn-gold{background:var(--gold);color:var(--pine)}
@@ -778,6 +782,7 @@ function showDetail(key){
     <div class="fambox"><div class="k">為什麼適合你們家</div><p>${esc(i.family)}</p></div>
     ${i.compare?compareHTML(i.compare):''}
     ${i.info?infoHTML(i.info):''}
+    ${i.map?`<h4 style="margin-top:8px">景點地圖</h4><div id="islmap" class="islmap"></div><p class="cmp-note">點地圖上的標記看景點名稱；可縮放與拖曳。</p>`:''}
     <div class="cta-row">
       ${i.template
         ? `<button class="btn btn-gold" onclick="loadTemplate('${i.key}')">＋ 載入這份行程到「行程規劃」</button>
@@ -789,6 +794,20 @@ function showDetail(key){
       : `<p class="tpl-note">這座島的完整每日行程範本還在規劃中。點「為我客製」會告訴你如何讓設計師為你排——或先用「行程規劃」自行建立。</p>`}
   </div>`;
   window.scrollTo(0,0);
+  if(i.map) setTimeout(()=>initMap(i.map),60);
+}
+
+let _map=null;
+function initMap(m){
+  if(typeof L==='undefined')return;
+  const el=document.getElementById('islmap');if(!el)return;
+  if(_map){_map.remove();_map=null;}
+  _map=L.map('islmap',{scrollWheelZoom:false}).setView(m.center,m.zoom);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(_map);
+  m.pois.forEach((p,idx)=>{
+    L.marker([p.lat,p.lng]).addTo(_map).bindPopup('<b>'+(idx+1)+'. '+p.name+'</b>');
+  });
+  setTimeout(()=>_map.invalidateSize(),120);
 }
 
 function loadTemplate(key){
