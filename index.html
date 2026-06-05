@@ -86,6 +86,10 @@ section{padding:130px 0}
 
 /* ── tools ── */
 .tools-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.tools-grid.three{grid-template-columns:repeat(3,1fr);gap:26px}
+.tools-grid.three .ph{height:170px}
+.tools-grid.three h3{font-size:1.5rem}
+@media(max-width:900px){.tools-grid.three{grid-template-columns:1fr}}
 .tcard{background:#fff;border:1px solid var(--divider);overflow:hidden;transition:transform .4s,box-shadow .4s;display:flex;flex-direction:column}
 .tcard:hover{transform:translateY(-8px);box-shadow:0 26px 56px rgba(28,58,45,.15)}
 .tcard .ph{height:200px;background:linear-gradient(135deg,var(--pine),var(--sage));display:flex;align-items:center;justify-content:center}
@@ -152,7 +156,7 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
     </div>
     <div class="nav-links">
       <a href="#philosophy">理念</a>
-      <a href="#tools">功能</a>
+      <a href="destinations.html">目的地</a>
       <a href="itinerary.html">行程規劃</a>
       <a href="journal.html">旅遊日誌</a>
       <a href="#contact">開始</a>
@@ -202,13 +206,21 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
 <section class="journeys" id="tools">
   <div class="wrap">
     <div class="sec-head">
-      <span class="label">Plan &amp; Remember</span>
-      <h2>規劃，然後記得</h2>
+      <span class="label">Choose · Plan · Remember</span>
+      <h2>選島，規劃，然後記得</h2>
       <div class="line"></div>
     </div>
-    <div class="tools-grid">
+    <div class="tools-grid three">
+      <a class="tcard" href="destinations.html">
+        <div class="ph"><span class="en">Destinations</span></div>
+        <div class="body">
+          <h3>目的地靈感</h3>
+          <p>還沒決定去哪？直接點選海島，看為我們家篩選的建議天數、風格與亮點，沖繩還能一鍵載入行程。</p>
+          <span class="enter">挑選海島 →</span>
+        </div>
+      </a>
       <a class="tcard" href="itinerary.html">
-        <div class="ph"><span class="en">Itinerary</span></div>
+        <div class="ph alt"><span class="en">Itinerary</span></div>
         <div class="body">
           <h3>行程規劃</h3>
           <p>出發之前，把每一天排好。景點、時間、交通與備註，一目了然，還能列印成精緻行程表帶著走。</p>
@@ -216,7 +228,7 @@ footer .fmark{width:30px;height:30px;margin:0 auto 20px;opacity:.7}
         </div>
       </a>
       <a class="tcard" href="journal.html">
-        <div class="ph alt"><span class="en">Journal</span></div>
+        <div class="ph"><span class="en">Journal</span></div>
         <div class="body">
           <h3>旅遊日誌</h3>
           <p>回來之後，把故事寫下來。照片、心情與那些計畫之外的瞬間，都收進屬於我們家的旅行回憶裡。</p>

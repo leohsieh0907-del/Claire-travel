@@ -132,11 +132,12 @@ header .actions{display:flex;gap:12px;flex-wrap:wrap}
 </defs></svg>
 
 <header>
-  <div class="brand">
+  <div class="brand" style="cursor:pointer" onclick="location.href='index.html'">
     <svg class="mark" viewBox="0 0 100 100"><use href="#pine"/></svg>
     <h1>璟松 · 行程規劃<small>Jing Song Itinerary</small></h1>
   </div>
   <div class="actions">
+    <a class="btn btn-ghost" href="destinations.html">目的地</a>
     <button class="btn btn-ghost" onclick="exportData()">匯出備份</button>
     <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">匯入備份</button>
     <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
