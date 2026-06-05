@@ -14,6 +14,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root{
   --pine:#1C3A2D; --gold:#C4A35A; --sage:#8A9E8F;
@@ -250,6 +252,15 @@ const islands=[
         '健保可事後核退部分海外就醫費（需診斷書＋收據）'
       ]
     },
+    map:{center:[26.45,127.85],zoom:10,pois:[
+      {name:'美麗海水族館',lat:26.6944,lng:127.8779},
+      {name:'古宇利島',lat:26.7028,lng:128.0183},
+      {name:'萬座毛',lat:26.5047,lng:127.8497},
+      {name:'琉球村',lat:26.4339,lng:127.7556},
+      {name:'OKINAWA WORLD 玉泉洞',lat:26.1417,lng:127.7472},
+      {name:'DMM 水族館',lat:26.1936,lng:127.6431},
+      {name:'國際通',lat:26.2147,lng:127.6811}
+    ]},
     template:OKINAWA_TEMPLATE()
   },
   {
@@ -337,6 +348,15 @@ const islands=[
         '屬登革熱地區，防蚊與防曬要做足'
       ]
     },
+    map:{center:[-8.55,115.18],zoom:10,pois:[
+      {name:'烏布 Ubud',lat:-8.5069,lng:115.2625},
+      {name:'德哥拉朗梯田',lat:-8.4318,lng:115.2797},
+      {name:'聖泉廟 Tirta Empul',lat:-8.4156,lng:115.3153},
+      {name:'海神廟 Tanah Lot',lat:-8.6212,lng:115.0868},
+      {name:'水明漾 Seminyak',lat:-8.6833,lng:115.1586},
+      {name:'南灣 Tanjung Benoa',lat:-8.7667,lng:115.2231},
+      {name:'GWK 文化公園',lat:-8.8104,lng:115.1675}
+    ]},
     template:BALI_TEMPLATE()
   },
   {
@@ -423,6 +443,13 @@ const islands=[
         '7-11 普及，可買水與基本用品'
       ]
     },
+    map:{center:[7.85,98.45],zoom:9,pois:[
+      {name:'芭東海灘 Patong',lat:7.8965,lng:98.2966},
+      {name:'PP 島',lat:7.7407,lng:98.7784},
+      {name:'普吉老鎮',lat:7.8841,lng:98.3876},
+      {name:'神仙半島 Promthep',lat:7.7626,lng:98.3050},
+      {name:'卡塔海灘 Kata',lat:7.8205,lng:98.2987}
+    ]},
     template:PHUKET_TEMPLATE()
   },
   {
@@ -508,6 +535,12 @@ const islands=[
         'ATM 偶爾缺鈔，建議備足現金披索'
       ]
     },
+    map:{center:[11.965,121.928],zoom:13,pois:[
+      {name:'白沙灘 White Beach',lat:11.9674,lng:121.9248},
+      {name:"D'Mall",lat:11.9690,lng:121.9250},
+      {name:'普卡海灘 Puka',lat:11.9869,lng:121.9210},
+      {name:'卡蒂克蘭碼頭',lat:11.9333,lng:121.9500}
+    ]},
     template:BORACAY_TEMPLATE()
   }
 ];
