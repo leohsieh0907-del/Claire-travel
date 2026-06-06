@@ -854,6 +854,66 @@ function BORACAY_TEMPLATE(){return {
   ]
 };}
 
+function SEOUL_TEMPLATE(){return {
+  id:'trip_seoul_tpl', name:'首爾 · 親子樂園', dest:'韓國 · 首爾（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月，依規定申請 K-ETA\n• 買 T-money 或氣候同行卡搭地鐵\n• 備轉接插頭、防曬、輕外套（冷氣強）\n• 樂園門票線上先買較便宜'},
+      {time:'14:00',title:'抵達仁川 → AREX 進市區',place:'明洞',note:'入住明洞飯店，孩子先休息。'},
+      {time:'18:30',title:'明洞商圈晚餐',place:'明洞',note:'烤肉或炸雞，逛街吃小吃。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'景福宮 穿韓服',place:'景福宮',note:'穿韓服入宮免門票，看守門將交接。'},
+      {time:'12:00',title:'午餐 · 三清洞',place:'三清洞',note:'人蔘雞或刀削麵。'},
+      {time:'14:00',title:'北村韓屋村',place:'北村',note:'傳統韓屋巷弄，拍照漫步。'},
+      {time:'17:00',title:'弘大商圈',place:'弘大',note:'街頭表演、購物、晚餐。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'愛寶樂園 一日',place:'愛寶樂園',note:'韓國最大主題樂園，動物園+遊樂設施，孩子玩整天。建議線上購票走快速通道。'},
+      {time:'19:00',title:'返回市區晚餐',place:'明洞',note:'車程約 1 小時。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'樂天世界',place:'蠶室',note:'室內外樂園，雨天也能玩；旁有水族館。'},
+      {time:'14:00',title:'COEX 水族館（可選）',place:'三成',note:'室內水族館，孩子喜歡。'},
+      {time:'18:00',title:'東大門購物',place:'東大門',note:'夜貓子購物天堂。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'廣藏市場 + 採買',place:'廣藏市場',note:'傳統小吃；超市買伴手禮（海苔、零食）。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'仁川機場',note:'AREX 進機場，預留時間。'}
+    ]}
+  ]
+};}
+
+function DANANG_TEMPLATE(){return {
+  id:'trip_danang_tpl', name:'峴港 · 海灘樂園', dest:'越南 · 峴港（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月，出發前線上辦 e-Visa\n• 備防曬、泳具、防蚊、現金（美金可換越南盾）\n• 巴拿山山上涼，帶薄外套\n• Grab App 先裝好叫車'},
+      {time:'14:00',title:'抵達峴港 → 飯店接送',place:'美溪海灘',note:'入住海灘度假村，泳池玩水。'},
+      {time:'18:30',title:'海灘海鮮晚餐',place:'美溪海灘',note:'海鮮排檔便宜新鮮。'}
+    ]},
+    {events:[
+      {time:'08:00',title:'巴拿山一日（黃金橋）',place:'Ba Na Hills',note:'搭世界級纜車上山，黃金橋雙手托橋、法式花園、城堡。建議早出發避人潮，含午餐。'},
+      {time:'18:00',title:'返回飯店',place:'美溪海灘',note:'車程約 1 小時。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'三日月溫泉水樂園',place:'Mikazuki',note:'滑水道、室內外泳池、日式溫泉，親子玩整天。'},
+      {time:'15:00',title:'美溪海灘戲水',place:'美溪海灘',note:'海灘平緩，孩子安心玩沙。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'五行山',place:'Marble Mountains',note:'電梯登頂，洞窟寺廟、觀景。'},
+      {time:'13:00',title:'會安古城',place:'Hoi An',note:'世界遺產古城，午後逛、傍晚燈籠夜景最美。'},
+      {time:'19:00',title:'會安夜市 放水燈',place:'Hoi An',note:'搭船放水燈，浪漫體驗。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'購物 · 伴手禮',place:'峴港',note:'超市買咖啡、腰果、零食。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'峴港機場',note:'預留時間，提早出發。'}
+    ]}
+  ]
+};}
+
 const V=()=>document.getElementById('view');
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
