@@ -1124,6 +1124,266 @@ const islands=[
       {name:'大石公園',lat:35.5240,lng:138.7440}
     ]},
     template:FUJI_TEMPLATE()
+  },
+  {
+    key:'busan', name:'釜山', en:'Busan', flag:'🇰🇷',
+    grad:'linear-gradient(135deg,#2c4a5a,#C4A35A)',
+    days:'5 天', style:'海港 ＋ 城市', tags:['甘川洞','海雲台','海鮮'],
+    teaser:'甘川洞彩色村、海雲台海灘與札嘎其海鮮市場，韓國第二大城的海港悠閒魅力。',
+    highlights:[
+      '甘川洞文化村，彩色山城拍照',
+      '海雲台、廣安里海灘與大橋夜景',
+      '札嘎其海鮮市場現吃',
+      '海東龍宮寺，海岸上的寺廟',
+      '西面、南浦洞購物',
+      '可順遊慶州古都'
+    ],
+    family:'比首爾悠閒、海景宜人，地鐵方便不必自駕。飛行約 2.5 小時；5 天玩市區＋海灘剛好。',
+    compare:{
+      note:'以下為 5 大 2 小（11 歲＋6 歲）· 暑假旺季估算，實際依航班與飯店浮動。',
+      free:{
+        title:'自由行', perPerson:'約 NT$ 30,000 / 人', family:'7 人約 NT$ 210,000',
+        days:['D1 抵達 → 西面商圈','D2 甘川洞＋札嘎其＋南浦洞','D3 海東龍宮寺＋海雲台','D4 廣安里＋樂天世界釜山','D5 購物 → 返程'],
+        cost:[['機票（暑假來回）','約 13,000 / 人'],['住宿 4 晚（2 房）','約 36,000'],['地鐵・交通','約 8,000'],['餐飲（7 人 5 天）','約 42,000'],['門票・活動','約 18,000'],['雜支','約 10,000']],
+        pros:['海景悠閒、步調慢','地鐵方便不自駕','海鮮便宜新鮮','比首爾人潮少'],
+        cons:['景點較分散','部分需爬坡','暑假較熱']
+      },
+      tour:{
+        title:'旅行社 · 跟團', perPerson:'約 NT$ 27,000 / 人起', family:'7 人約 NT$ 190,000 起',
+        days:['D1 抵達 → 釜山','D2 甘川洞＋海東龍宮寺','D3 海雲台＋慶州','D4 購物站＋南浦洞','D5 返程'],
+        cost:[['團費（含機票・飯店・車・部分餐）','約 27,000 / 人起'],['小費・自費','約 2,500 / 人'],['個人購物','自理']],
+        pros:['機酒車一次搞定','常含慶州古都','長輩輕鬆'],
+        cons:['含購物站','行程固定','自由活動少']
+      }
+    },
+    info:{
+      hotel:{
+        area:'住西面（市中心）或海雲台（海景），地鐵都方便',
+        tips:['市區飯店約 NT$2,500–5,500/晚','海雲台海景房較貴但值得','選近地鐵站、附早餐','暑假旺季提早訂'],
+        platforms:[{name:'Booking.com',url:'https://www.booking.com'},{name:'Agoda',url:'https://www.agoda.com'},{name:'Klook',url:'https://www.klook.com'}]
+      },
+      transport:['韓國免簽，依規定申請 K-ETA','金海機場輕軌＋地鐵進市區','市區買 T-money 搭地鐵','不需自駕；計程車用 Kakao T','慶州搭巴士/火車前往'],
+      dining:['必吃：豬肉湯飯、海鮮、魚糕（魚板）、小麥冷麵、烤腸','札嘎其市場現點海鮮','西面美食街、南浦洞小吃','便利商店宵夜方便'],
+      medical:['緊急電話：119（救護）、112（警察）、1330（旅遊諮詢）','市區大醫院多、藥局普及','⚠️ 務必保旅平險＋醫療險','備感冒腸胃藥'],
+      localPicks:['草梁豬肉湯飯 — 在地名店','札嘎其市場 2 樓現煮海鮮','甘川洞文化村小王子拍照','海雲台海水浴場','廣安大橋夜景','南浦洞 BIFF 廣場小吃']
+    },
+    map:{center:[35.16,129.07],zoom:11,pois:[
+      {name:'甘川洞文化村',lat:35.0975,lng:129.0107},
+      {name:'海雲台海灘',lat:35.1587,lng:129.1604},
+      {name:'札嘎其市場',lat:35.0966,lng:129.0306},
+      {name:'海東龍宮寺',lat:35.1884,lng:129.2233},
+      {name:'廣安里大橋',lat:35.1532,lng:129.1186},
+      {name:'西面',lat:35.1577,lng:129.0594}
+    ]},
+    template:BUSAN_TEMPLATE()
+  },
+  {
+    key:'jeju', name:'濟州', en:'Jeju', flag:'🇰🇷',
+    grad:'linear-gradient(135deg,#3a5a4a,#C4A35A)',
+    days:'5 天', style:'海島 ＋ 自然', tags:['自駕','瀑布海岸','柑橘'],
+    teaser:'城山日出峰、翰拿山與海岸瀑布，韓國度假島嶼自駕，柑橘園與黑豬肉美食。',
+    highlights:[
+      '城山日出峰，火山口日出絕景',
+      '翰拿山、天地淵瀑布',
+      '泰迪熊博物館、主題樂園',
+      '涉地可支海岸、咖啡廳',
+      '柱狀節理帶、海女表演',
+      '黑豬肉、柑橘園採果'
+    ],
+    family:'度假島嶼、自駕兜風自在，海岸與主題館親子愛。飛行約 2.5 小時直飛；環島建議自駕 5 天。',
+    compare:{
+      note:'以下為 5 大 2 小（11 歲＋6 歲）· 暑假旺季估算，實際依航班與飯店浮動。',
+      free:{
+        title:'自由行 · 自駕', perPerson:'約 NT$ 32,000 / 人', family:'7 人約 NT$ 225,000',
+        days:['D1 抵達 → 濟州市','D2 東部：城山日出峰＋涉地可支','D3 西部：翰拿山＋柱狀節理','D4 主題館＋柑橘園＋海女','D5 採買 → 返程'],
+        cost:[['機票（暑假來回）','約 14,000 / 人'],['住宿 4 晚（2 房）','約 40,000'],['8 人座租車 5 天＋油資','約 18,000'],['餐飲（7 人 5 天）','約 42,000'],['門票・活動','約 21,000'],['雜支','約 10,000']],
+        pros:['度假海島、自駕最自在','海岸景觀療癒','主題館親子多','黑豬肉柑橘美食'],
+        cons:['需自駕、景點分散','風大、天氣多變','大眾運輸較少']
+      },
+      tour:{
+        title:'旅行社 · 跟團', perPerson:'約 NT$ 29,000 / 人起', family:'7 人約 NT$ 205,000 起',
+        days:['D1 抵達 → 濟州','D2 城山日出峰＋城邑民俗村','D3 翰拿山＋天地淵瀑布','D4 主題館＋購物','D5 返程'],
+        cost:[['團費（含機票・飯店・車・部分餐）','約 29,000 / 人起'],['小費・自費','約 2,500 / 人'],['個人購物','自理']],
+        pros:['不必自駕環島','有導遊解說','長輩輕鬆'],
+        cons:['含購物站','行程固定','自由時間少']
+      }
+    },
+    info:{
+      hotel:{
+        area:'住濟州市（機場近）或西歸浦（南部景點近）',
+        tips:['市區飯店約 NT$2,500–6,000/晚','海景度假村較貴但舒適','分東西部住可省車程','暑假旺季提早訂'],
+        platforms:[{name:'Booking.com',url:'https://www.booking.com'},{name:'Agoda',url:'https://www.agoda.com'},{name:'Klook',url:'https://www.klook.com'}]
+      },
+      transport:['韓國免簽，依規定申請 K-ETA','自駕最方便，需國際駕照（韓國認 IDP）','濟州機場取 8 人座','大眾運輸較少、不便','加油站普及'],
+      dining:['必吃：黑豬肉燒烤、海女現撈海鮮、鮑魚粥、柑橘','涉地可支海景咖啡','在地海鮮湯麵','柑橘巧克力伴手禮'],
+      medical:['緊急電話：119（救護）、112（警察）、1330（旅遊諮詢）','濟州市有大醫院，鄉間較少','⚠️ 務必保旅平險＋醫療險','備暈車藥（山路）'],
+      localPicks:['黑豬肉一條街（濟州市）','涉地可支 — 海岸絕景','城山日出峰登頂','翰林公園','5 日市集（在地市場）','OSULLOC 綠茶博物館']
+    },
+    map:{center:[33.38,126.55],zoom:10,pois:[
+      {name:'城山日出峰',lat:33.4581,lng:126.9425},
+      {name:'涉地可支',lat:33.4239,lng:126.9300},
+      {name:'天地淵瀑布',lat:33.2447,lng:126.5590},
+      {name:'柱狀節理帶',lat:33.2376,lng:126.4270},
+      {name:'翰林公園',lat:33.3920,lng:126.2640},
+      {name:'OSULLOC 茶博物館',lat:33.3056,lng:126.2890}
+    ]},
+    template:JEJU_TEMPLATE()
+  },
+  {
+    key:'phuquoc', name:'富國島', en:'Phu Quoc', flag:'🇻🇳',
+    grad:'linear-gradient(135deg,#1a7a6a,#C4A35A)',
+    days:'5 天', style:'海島 ＋ 樂園', tags:['跨海纜車','親子樂園','海灘'],
+    teaser:'世界最長跨海纜車、珍珠樂園與白沙灘，越南度假島嶼的親子玩水天堂。',
+    highlights:[
+      'Sun World 跨海纜車（世界最長）',
+      'VinWonders 珍珠樂園（水樂園＋遊樂園）',
+      'Vinpearl Safari 野生動物園',
+      '長灘日落、白沙海灘',
+      'Grand World 威尼斯水鄉、夜秀',
+      '夜市海鮮、珍珠養殖'
+    ],
+    family:'海島度假、親子樂園多、海灘平緩。飛行約 3.5 小時（多需轉機）；5 天玩樂園＋海灘最盡興。',
+    compare:{
+      note:'以下為 5 大 2 小（11 歲＋6 歲）· 暑假旺季估算，實際依航班與飯店浮動。',
+      free:{
+        title:'自由行', perPerson:'約 NT$ 26,000 / 人', family:'7 人約 NT$ 185,000',
+        days:['D1 抵達 → 長灘度假村','D2 VinWonders 珍珠樂園','D3 Safari＋跨海纜車','D4 海灘＋Grand World 夜秀','D5 夜市採買 → 返程'],
+        cost:[['機票（暑假來回，含轉機）','約 12,000 / 人'],['海灘度假村 4 晚','約 34,000'],['樂園・纜車・Safari','約 32,000'],['餐飲（7 人 5 天）','約 28,000'],['包車・接送','約 14,000'],['雜支','約 8,000']],
+        pros:['親子樂園一次玩夠','海灘平緩、6 歲安心','性價比高','度假村設施好'],
+        cons:['多需轉機','暑假較熱','島上拉車靠包車']
+      },
+      tour:{
+        title:'旅行社 · 跟團', perPerson:'約 NT$ 28,000 / 人起', family:'7 人約 NT$ 195,000 起',
+        days:['D1 抵達 → 度假村','D2 VinWonders 樂園','D3 跨海纜車＋Safari','D4 海灘＋Grand World','D5 返程'],
+        cost:[['團費（含機票・飯店・車・部分餐）','約 28,000 / 人起'],['小費・自費','約 2,500 / 人'],['個人購物','自理']],
+        pros:['樂園門票多含在內','接駁省心','長輩輕鬆'],
+        cons:['含購物站','行程固定','自費活動可能追加']
+      }
+    },
+    info:{
+      hotel:{
+        area:'住長灘(Long Beach)度假村，近樂園與夜市',
+        tips:['海灘度假村約 NT$2,500–5,000/晚','選含水樂園或大泳池的 Vinpearl/Sun','長灘生活機能好、夕陽美','暑假旺季提早訂'],
+        platforms:[{name:'Booking.com',url:'https://www.booking.com'},{name:'Agoda',url:'https://www.agoda.com'},{name:'Klook',url:'https://www.klook.com'}]
+      },
+      transport:['越南需電子簽證 e-Visa（出發前線上辦）','島上用 Grab 或請飯店包車','樂園間有接駁車','機場到長灘約 20 分','不建議自行騎機車'],
+      dining:['必吃：越式海鮮、Bánh mì、生春捲、椰子','夜市現烤海鮮便宜','⚠️ 生水不生飲、喝瓶裝水','度假村自助餐方便親子'],
+      medical:['緊急電話：115（救護）、113（警察）','島上有 Vinmec 醫院','⚠️ 務必保旅平險＋醫療險，備腸胃藥、防蚊','現金為主，大店可刷卡'],
+      localPicks:['夜市海鮮排檔','VinWonders 水樂園','跨海纜車香島(Hon Thom)','Grand World 夜間水秀','長灘日落酒吧','珍珠養殖場參觀']
+    },
+    map:{center:[10.22,103.96],zoom:11,pois:[
+      {name:'長灘 Long Beach',lat:10.1860,lng:103.9620},
+      {name:'VinWonders 珍珠樂園',lat:10.3290,lng:103.8620},
+      {name:'Vinpearl Safari',lat:10.3150,lng:103.8730},
+      {name:'跨海纜車',lat:10.0430,lng:104.0210},
+      {name:'Grand World',lat:10.3340,lng:103.8560},
+      {name:'夜市 Dinh Cau',lat:10.2150,lng:103.9580}
+    ]},
+    template:PHUQUOC_TEMPLATE()
+  },
+  {
+    key:'bangkok', name:'曼谷', en:'Bangkok', flag:'🇹🇭',
+    grad:'linear-gradient(135deg,#5a4a2a,#C4A35A)',
+    days:'5 天', style:'城市 ＋ 市集', tags:['大皇宮','水上市場','按摩美食'],
+    teaser:'大皇宮與臥佛寺、恰圖恰市集與水上市場，曼谷的廟宇、購物與街頭美食天堂。',
+    highlights:[
+      '大皇宮、臥佛寺、鄭王廟',
+      '恰圖恰週末市集（世界最大）',
+      '丹嫩莎朵水上市場',
+      '暹羅 Siam 百貨商圈',
+      'SEA LIFE 海洋世界、樂園',
+      '夜市、按摩、米其林街頭美食'
+    ],
+    family:'城市便利、消費親民，海洋世界與樂園親子愛、大人按摩購物。飛行約 3.5 小時；5 天市區＋近郊。',
+    compare:{
+      note:'以下為 5 大 2 小（11 歲＋6 歲）· 暑假旺季估算，實際依航班與飯店浮動。',
+      free:{
+        title:'自由行', perPerson:'約 NT$ 24,000 / 人', family:'7 人約 NT$ 170,000',
+        days:['D1 抵達 → Siam 商圈','D2 大皇宮＋臥佛寺＋鄭王廟','D3 水上市場＋鐵道市場','D4 海洋世界＋恰圖恰市集','D5 按摩購物 → 返程'],
+        cost:[['機票（暑假來回）','約 11,000 / 人'],['住宿 4 晚（2 房）','約 28,000'],['BTS・包車','約 12,000'],['餐飲（7 人 5 天）','約 30,000'],['門票・活動','約 18,000'],['雜支・按摩','約 10,000']],
+        pros:['消費親民、CP 值最高','美食購物天堂','按摩便宜舒服','親子景點多'],
+        cons:['交通易塞車','夏天炎熱','水上市場較遠']
+      },
+      tour:{
+        title:'旅行社 · 跟團', perPerson:'約 NT$ 22,000 / 人起', family:'7 人約 NT$ 155,000 起',
+        days:['D1 抵達 → 曼谷','D2 大皇宮＋臥佛寺','D3 水上市場＋安帕瓦','D4 樂園＋購物站','D5 返程'],
+        cost:[['團費（含機票・飯店・車・部分餐）','約 22,000 / 人起'],['小費・自費','約 2,000 / 人'],['個人購物','自理']],
+        pros:['價格最親民','有導遊、長輩輕鬆','含水上市場行程'],
+        cons:['含購物站','行程較趕','自費按摩秀']
+      }
+    },
+    info:{
+      hotel:{
+        area:'住 Siam / Sukhumvit（近 BTS）逛街交通方便',
+        tips:['市區飯店約 NT$1,800–4,500/晚，CP 值高','選近 BTS/MRT 站、附泳池','親子可選公寓式飯店','旺季提早訂'],
+        platforms:[{name:'Booking.com',url:'https://www.booking.com'},{name:'Agoda',url:'https://www.agoda.com'},{name:'Klook',url:'https://www.klook.com'}]
+      },
+      transport:['泰國免簽（護照效期滿 6 個月）','BTS 空鐵＋MRT 避開塞車','Grab/Bolt 叫車透明','水上市場建議包車一日','機場快線 ARL 進市區'],
+      dining:['必吃：泰式咖哩、冬陰功、芒果糯米、船麵、海鮮','恰圖恰、Or Tor Kor 市場美食','米其林街頭：Jay Fai','⚠️ 生水不生飲、辣度可調'],
+      medical:['緊急電話：1669（救護）、191（警察）、1155（觀光警察）','曼谷醫院 BNH、Bumrungrad 國際級','⚠️ 務必保旅平險＋醫療險，備腸胃藥','7-11 普及'],
+      localPicks:['Jay Fai 痣姐（米其林炒蟹）','恰圖恰週末市集','After You / Mango Tango 芒果甜點','水門市場海南雞飯','Asiatique 河濱夜市','Let\'s Relax 按摩連鎖']
+    },
+    map:{center:[13.75,100.52],zoom:11,pois:[
+      {name:'大皇宮',lat:13.7500,lng:100.4914},
+      {name:'臥佛寺',lat:13.7465,lng:100.4927},
+      {name:'恰圖恰市集',lat:13.7999,lng:100.5503},
+      {name:'丹嫩莎朵水上市場',lat:13.5200,lng:99.9590},
+      {name:'Siam 商圈',lat:13.7460,lng:100.5340},
+      {name:'Asiatique 夜市',lat:13.7045,lng:100.5070}
+    ]},
+    template:BANGKOK_TEMPLATE()
+  },
+  {
+    key:'singapore', name:'新加坡', en:'Singapore', flag:'🇸🇬',
+    grad:'linear-gradient(135deg,#2a4a5a,#C4A35A)',
+    days:'5 天', style:'城市 ＋ 樂園', tags:['環球影城','濱海灣','親子友善'],
+    teaser:'聖淘沙環球影城、濱海灣花園與夜間動物園，乾淨安全、英文通的親子友善城市國家。',
+    highlights:[
+      '聖淘沙環球影城',
+      '濱海灣花園 Gardens by the Bay',
+      '魚尾獅、濱海灣金沙',
+      '動物園、夜間動物園、River Wonders',
+      '樟宜機場星耀瀑布',
+      '小印度、牛車水、克拉碼頭'
+    ],
+    family:'乾淨安全、英文通、親子設施一流，地鐵方便。飛行約 4.5 小時；5 天玩環球影城＋市區。消費較高但體驗佳。',
+    compare:{
+      note:'以下為 5 大 2 小（11 歲＋6 歲）· 暑假旺季估算，實際依航班與飯店浮動。',
+      free:{
+        title:'自由行', perPerson:'約 NT$ 38,000 / 人', family:'7 人約 NT$ 265,000',
+        days:['D1 抵達 → 市區','D2 聖淘沙環球影城','D3 濱海灣花園＋金沙＋魚尾獅','D4 動物園＋夜間動物園','D5 樟宜星耀＋採買 → 返程'],
+        cost:[['機票（暑假來回）','約 16,000 / 人'],['住宿 4 晚（2 房）','約 48,000'],['地鐵・交通','約 8,000'],['餐飲（7 人 5 天）','約 50,000'],['環球影城・門票','約 32,000'],['雜支','約 12,000']],
+        pros:['乾淨安全、英文通','親子設施世界級','地鐵方便不自駕','環球影城與動物園必玩'],
+        cons:['消費較高','夏天悶熱多雨','住宿偏貴']
+      },
+      tour:{
+        title:'旅行社 · 跟團', perPerson:'約 NT$ 35,000 / 人起', family:'7 人約 NT$ 245,000 起',
+        days:['D1 抵達 → 市區夜遊','D2 環球影城','D3 濱海灣花園＋金沙＋魚尾獅','D4 動物園＋購物','D5 樟宜星耀 → 返程'],
+        cost:[['團費（含機票・飯店・車・部分餐）','約 35,000 / 人起'],['小費・自費','約 3,000 / 人'],['個人購物','自理']],
+        pros:['機酒車一次搞定','環球影城門票多含','長輩輕鬆'],
+        cons:['含購物站','行程較趕','自由活動少']
+      }
+    },
+    info:{
+      hotel:{
+        area:'住市政區(City Hall)或烏節路(Orchard)，地鐵方便',
+        tips:['市區飯店約 NT$4,000–9,000/晚（偏貴）','聖淘沙可住一晚玩樂園','選近 MRT 站、附泳池','旺季提早訂'],
+        platforms:[{name:'Booking.com',url:'https://www.booking.com'},{name:'Agoda',url:'https://www.agoda.com'},{name:'Klook',url:'https://www.klook.com'}]
+      },
+      transport:['新加坡免簽（護照效期滿 6 個月）','地鐵 MRT 發達、買 EZ-Link 卡','樟宜機場地鐵直達市區','不需自駕；Grab 叫車','聖淘沙搭捷運/纜車前往'],
+      dining:['必吃：海南雞飯、辣椒螃蟹、肉骨茶、叻沙、沙嗲','小販中心(Hawker)平價美食','老巴剎、麥士威熟食中心','榴槤季可嘗鮮'],
+      medical:['緊急電話：995（救護）、999（警察）','醫療世界級但費用高','⚠️ 務必保旅平險＋醫療險','藥局 Guardian/Watsons 普及'],
+      localPicks:['天天海南雞飯（麥士威）','松發肉骨茶','珍寶海鮮辣椒螃蟹','濱海灣花園燈光秀(免費)','樟宜星耀瀑布','老巴剎沙嗲街']
+    },
+    map:{center:[1.29,103.85],zoom:12,pois:[
+      {name:'環球影城',lat:1.2540,lng:103.8240},
+      {name:'濱海灣花園',lat:1.2816,lng:103.8636},
+      {name:'濱海灣金沙',lat:1.2834,lng:103.8607},
+      {name:'新加坡動物園',lat:1.4043,lng:103.7930},
+      {name:'樟宜星耀',lat:1.3601,lng:103.9890},
+      {name:'牛車水',lat:1.2820,lng:103.8440}
+    ]},
+    template:SINGAPORE_TEMPLATE()
   }
 ];
 
@@ -1571,11 +1831,161 @@ function FUJI_TEMPLATE(){return {
   ]
 };}
 
+function BUSAN_TEMPLATE(){return {
+  id:'trip_busan_tpl', name:'釜山 · 海港城市', dest:'韓國 · 釜山（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月，依規定申請 K-ETA\n• 買 T-money 搭地鐵\n• 金海機場輕軌＋地鐵進市區\n• 備防曬、輕外套（冷氣強）'},
+      {time:'14:00',title:'抵達 → 西面入住',place:'西面',note:'地鐵進市區，孩子先休息。'},
+      {time:'18:30',title:'西面美食街晚餐',place:'西面',note:'豬肉湯飯或烤腸。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'甘川洞文化村',place:'甘川洞',note:'彩色山城、小王子拍照、蓋章地圖。'},
+      {time:'13:00',title:'札嘎其市場',place:'札嘎其',note:'2 樓現點海鮮現煮。'},
+      {time:'15:00',title:'南浦洞 + BIFF 廣場',place:'南浦洞',note:'購物與街頭小吃。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'海東龍宮寺',place:'機張',note:'海岸上的寺廟，獨特景觀。'},
+      {time:'13:00',title:'海雲台海灘',place:'海雲台',note:'戲水、SEA LIFE 水族館、The Bay 101。'},
+      {time:'18:00',title:'廣安里大橋夜景',place:'廣安里',note:'海灘煙火氣氛、晚餐。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'樂天世界釜山 / 慶州（擇一）',place:'機張/慶州',note:'樂園親子，或順遊慶州古都（佛國寺）。'},
+      {time:'17:00',title:'西面購物',place:'西面',note:'地下街、樂天百貨。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'採買伴手禮',place:'南浦洞/西面',note:'魚糕、海苔、零食。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'金海機場',note:'輕軌進機場，預留時間。'}
+    ]}
+  ]
+};}
+
+function JEJU_TEMPLATE(){return {
+  id:'trip_jeju_tpl', name:'濟州 · 海島自駕', dest:'韓國 · 濟州（5大2小 · 自駕）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月，依規定申請 K-ETA\n• 自駕需國際駕照 IDP（濟州認 IDP）\n• 濟州機場取 8 人座，提前線上預約\n• 風大天氣多變，備外套'},
+      {time:'14:00',title:'抵達 → 取車 → 濟州市',place:'濟州市',note:'入住，黑豬肉晚餐。'},
+      {time:'18:30',title:'黑豬肉一條街',place:'濟州市',note:'濟州名物炭烤黑豬肉。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'城山日出峰',place:'城山',note:'火山口登頂、海女表演。車程約 1 小時。'},
+      {time:'13:00',title:'涉地可支',place:'城山',note:'海岸絕景、咖啡廳。'},
+      {time:'16:00',title:'城邑民俗村',place:'城邑',note:'傳統石屋聚落。入住東部。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'翰林公園',place:'翰林',note:'溶洞、植物園、孔雀，親子適合。'},
+      {time:'13:00',title:'柱狀節理帶',place:'中文',note:'火山岩海岸奇景。'},
+      {time:'15:30',title:'天地淵瀑布',place:'西歸浦',note:'步道瀑布。入住西歸浦。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'泰迪熊博物館 / 主題館',place:'中文',note:'親子主題館。'},
+      {time:'13:00',title:'OSULLOC 綠茶博物館 + 柑橘園',place:'西部',note:'抹茶甜點、採柑橘（季節）。'},
+      {time:'16:00',title:'返回濟州市',place:'濟州市',note:'東門市場採買。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'還車 → 採買',place:'濟州市',note:'柑橘巧克力、伴手禮。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'濟州機場',note:'預留時間。'}
+    ]}
+  ]
+};}
+
+function PHUQUOC_TEMPLATE(){return {
+  id:'trip_phuquoc_tpl', name:'富國島 · 海島樂園', dest:'越南 · 富國島（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月，線上辦 e-Visa\n• 備防曬、泳具、防蚊、現金\n• 樂園門票線上先買較便宜\n• Grab App 先裝'},
+      {time:'14:00',title:'抵達 → 長灘度假村',place:'長灘',note:'飯店接送，泳池玩水。'},
+      {time:'18:30',title:'夜市海鮮',place:'Dinh Cau 夜市',note:'現烤海鮮便宜新鮮。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'VinWonders 珍珠樂園',place:'VinWonders',note:'水樂園＋遊樂園，孩子玩整天。'},
+      {time:'18:00',title:'返回度假村',place:'長灘',note:'休息。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'Vinpearl Safari',place:'Safari',note:'野生動物園、餵長頸鹿，親子愛。'},
+      {time:'14:00',title:'香島跨海纜車',place:'Hon Thom',note:'世界最長跨海纜車，海景壯觀。'},
+      {time:'17:00',title:'太陽世界 Aquatopia',place:'香島',note:'水上樂園（可選）。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'長灘海灘 + 日落',place:'長灘',note:'戲水、立槳、看夕陽。'},
+      {time:'18:00',title:'Grand World 夜秀',place:'Grand World',note:'威尼斯水鄉、河上水秀。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'採買伴手禮',place:'富國島',note:'魚露、腰果、珍珠。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'富國島機場',note:'預留時間。'}
+    ]}
+  ]
+};}
+
+function BANGKOK_TEMPLATE(){return {
+  id:'trip_bangkok_tpl', name:'曼谷 · 城市市集', dest:'泰國 · 曼谷（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月（泰國免簽）\n• 搭 BTS/MRT 避開塞車\n• 備防曬、雨具（午後雷陣雨）\n• Grab App 先裝、備現金'},
+      {time:'14:00',title:'抵達 → Siam 商圈',place:'Siam',note:'ARL 進市區，入住。'},
+      {time:'18:30',title:'Siam 晚餐購物',place:'Siam',note:'百貨美食街、按摩。'}
+    ]},
+    {events:[
+      {time:'08:30',title:'大皇宮 + 玉佛寺',place:'大皇宮',note:'早去避熱避人潮，注意服裝（包肩膝）。'},
+      {time:'11:00',title:'臥佛寺 + 鄭王廟',place:'臥佛寺',note:'渡船過河看鄭王廟。'},
+      {time:'15:00',title:'河濱晚餐 / 按摩',place:'河濱',note:'昭披耶河景。'}
+    ]},
+    {events:[
+      {time:'07:30',title:'丹嫩莎朵水上市場',place:'水上市場',note:'包車一日，搭船遊市場、買小吃。'},
+      {time:'13:00',title:'美功鐵道市場',place:'鐵道市場',note:'火車穿越市場奇景。'},
+      {time:'18:00',title:'Asiatique 河濱夜市',place:'Asiatique',note:'摩天輪、購物、晚餐。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'SEA LIFE 海洋世界',place:'Siam',note:'室內水族館，避暑親子。'},
+      {time:'14:00',title:'恰圖恰週末市集',place:'恰圖恰',note:'世界最大市集（週末），逛到腳軟。'},
+      {time:'19:00',title:'全家泰式按摩',place:'市區',note:'平價舒壓。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'採買伴手禮',place:'BIG C / 商場',note:'泰式零食、醬料、香氛。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'蘇凡納布機場',note:'ARL 進機場，預留時間。'}
+    ]}
+  ]
+};}
+
+function SINGAPORE_TEMPLATE(){return {
+  id:'trip_singapore_tpl', name:'新加坡 · 城市樂園', dest:'新加坡（5大2小）',
+  start:'2026-07-22', end:'2026-07-26',
+  days:[
+    {events:[
+      {time:'',title:'📋 行前重點（請先讀）',place:'出發前準備',note:'• 護照效期滿 6 個月（新加坡免簽）\n• 入境填 SG Arrival Card（線上）\n• 買 EZ-Link 卡搭地鐵\n• 環球影城門票線上先買'},
+      {time:'14:00',title:'抵達 → 樟宜星耀',place:'樟宜機場',note:'先逛星耀瀑布，地鐵進市區入住。'},
+      {time:'18:30',title:'牛車水 / 克拉碼頭晚餐',place:'牛車水',note:'海南雞飯、肉骨茶。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'聖淘沙環球影城',place:'聖淘沙',note:'變形金剛、木乃伊、親子設施，玩整天。'},
+      {time:'19:00',title:'時光之翼水舞秀',place:'聖淘沙',note:'海濱燈光水秀。'}
+    ]},
+    {events:[
+      {time:'09:30',title:'濱海灣花園',place:'Gardens by the Bay',note:'擎天樹、花穹、雲霧林。'},
+      {time:'14:00',title:'魚尾獅 + 金沙',place:'濱海灣',note:'魚尾獅公園、金沙購物。'},
+      {time:'19:45',title:'花園燈光秀（免費）',place:'濱海灣花園',note:'擎天樹燈光秀。'}
+    ]},
+    {events:[
+      {time:'09:00',title:'新加坡動物園',place:'動物園',note:'開放式動物園、River Wonders 看貓熊。'},
+      {time:'18:00',title:'夜間野生動物園',place:'夜間動物園',note:'世界首座夜間動物園，搭遊園車。'}
+    ]},
+    {events:[
+      {time:'10:00',title:'小印度 / 哈芝巷 + 採買',place:'市區',note:'彩色街屋、伴手禮。'},
+      {time:'14:00',title:'前往機場 → 返程',place:'樟宜機場',note:'再逛星耀，預留時間。'}
+    ]}
+  ]
+};}
+
 const V=()=>document.getElementById('view');
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
 let _gridView='grid', _favOnly=false;
-const REGION={okinawa:'日本',bali:'東南亞',phuket:'東南亞',boracay:'東南亞',seoul:'韓國',danang:'越南',tokyo:'日本',osaka:'日本',hokkaido:'日本',kyoto:'日本',fukuoka:'日本',nagoya:'日本',tohoku:'日本',fuji:'日本'};
+const REGION={okinawa:'日本',bali:'東南亞',phuket:'東南亞',boracay:'東南亞',seoul:'韓國',danang:'越南',tokyo:'日本',osaka:'日本',hokkaido:'日本',kyoto:'日本',fukuoka:'日本',nagoya:'日本',tohoku:'日本',fuji:'日本',busan:'韓國',jeju:'韓國',phuquoc:'越南',bangkok:'東南亞',singapore:'東南亞'};
 const MONTH_TIP={
   '1':'1月：日本可賞雪泡湯，東南亞為乾季舒適','2':'2月：東南亞乾季宜人，農曆春節機票貴',
   '3':'3月：氣候舒適、人潮少，CP 值高','4':'4月：泰國潑水節熱鬧，天氣漸熱',
