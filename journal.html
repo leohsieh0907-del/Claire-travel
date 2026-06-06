@@ -285,15 +285,17 @@ document.getElementById('inlineFile').addEventListener('change',e=>{
 function savePost(){
   const title=document.getElementById('fTitle').value.trim();
   if(!title){alert('請輸入標題');return}
-  const data={title,date:document.getElementById('fDate').value,
+  const id=editId||uid();
+  const data={id,title,date:document.getElementById('fDate').value,
     place:document.getElementById('fPlace').value.trim(),
     content:document.getElementById('fContent').value.trim(),
-    cover:draftCover,images:[...draftImgs]};
-  if(editId){Object.assign(posts.find(x=>x.id===editId),data);}
-  else{posts.push({id:uid(),...data});}
-  save();showArticle(editId||posts[posts.length-1].id);
+    cover:draftCover,images:[...draftImgs],updated:Date.now()};
+  POSTS.doc(id).set(data)
+    .then(()=>showArticle(id))
+    .catch(e=>alert('雲端儲存失敗（單篇照片過多會超過上限，請減少張數）：\n'+e.message));
 }
-function delPost(id){if(!confirm('確定刪除這篇記錄？無法復原。'))return;posts=posts.filter(x=>x.id!==id);save();showList();}
+function delPost(id){if(!confirm('確定刪除這篇記錄？無法復原。'))return;
+  POSTS.doc(id).delete().then(()=>showList()).catch(e=>alert('刪除失敗：'+e.message));}
 
 function exportData(){
   const blob=new Blob([JSON.stringify(posts,null,2)],{type:'application/json'});
@@ -303,17 +305,20 @@ function exportData(){
 document.getElementById('importFile').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;const r=new FileReader();
   r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d))throw 0;
-    if(confirm('匯入將覆蓋目前所有記錄，確定？')){posts=d;save();showList();}
+    if(confirm('匯入將把備份中的每篇記錄寫入雲端，確定？')){
+      d.forEach(p=>{const id=p.id||uid();POSTS.doc(id).set({...p,id});});
+      alert('已開始匯入，稍候會自動出現。');
+    }
   }catch(err){alert('檔案格式錯誤')}};r.readAsText(f);e.target.value='';
 });
 
-// seed example
-if(posts.length===0){
-  posts=[{id:uid(),title:'京都，那場剛好的秋雨',date:'2026-11-16',place:'日本 · 京都',
-    content:'抵達京都的第二天，天空飄起細雨。\n\n原本擔心會壞了行程，沒想到雨中的嵐山竹林反而最美——遊客散去，只剩竹葉上的水珠，和踩在石板上的腳步聲。我們在天龍寺的迴廊坐了很久，誰也沒說話，就看著庭園裡的楓葉一片片紅。\n\n午後雨停，陽光從雲縫灑下來。那一刻忽然覺得，旅行最好的部分，從來都不是計畫之內的。',
-    cover:'',images:[]}];
-  save();
-}
+// 雲端同步：登入後即時讀取所有日誌
+cloudReady(()=>{
+  POSTS.onSnapshot(snap=>{
+    posts=snap.docs.map(d=>d.data());
+    if(_view==='list') showList();
+  },err=>alert('雲端讀取失敗：'+err.message));
+});
 showList();
 </script>
 </body>
