@@ -816,9 +816,8 @@ function showGrid(){
       <select onchange="setFilter('region',this.value)">
         <option value=""${_filters.region===''?' selected':''}>不限</option>
         <option value="日本"${_filters.region==='日本'?' selected':''}>日本</option>
-        <option value="泰國"${_filters.region==='泰國'?' selected':''}>泰國</option>
-        <option value="印尼"${_filters.region==='印尼'?' selected':''}>印尼</option>
-        <option value="菲律賓"${_filters.region==='菲律賓'?' selected':''}>菲律賓</option>
+        <option value="韓國"${_filters.region==='韓國'?' selected':''}>韓國</option>
+        <option value="越南"${_filters.region==='越南'?' selected':''}>越南</option>
       </select>
     </label>
     <label>天數
@@ -835,15 +834,8 @@ function showGrid(){
         <option value="high"${_filters.budget==='high'?' selected':''}>3 萬以上</option>
       </select>
     </label>
-    <label>出發月份
-      <select onchange="setFilter('month',this.value)">
-        <option value=""${_filters.month===''?' selected':''}>不限</option>
-        ${[1,2,3,4,5,6,7,8,9,10,11,12].map(m=>`<option value="${m}"${_filters.month==String(m)?' selected':''}>${m} 月</option>`).join('')}
-      </select>
-    </label>
-    ${(_filters.region||_filters.days||_filters.budget||_filters.month)?`<button class="filter-clear" onclick="_filters={region:'',days:'',budget:'',month:''};showGrid()">✕ 清除</button>`:''}
+    ${(_filters.region||_filters.days||_filters.budget)?`<button class="filter-clear" onclick="_filters={region:'',days:'',budget:'',month:''};showGrid()">✕ 清除</button>`:''}
   </div>
-  ${_filters.month&&MONTH_TIP[_filters.month]?`<p class="month-tip">📅 ${MONTH_TIP[_filters.month]}</p>`:''}
   <div class="grid-tools">
     <div class="view-toggle">
       <button class="vt${_gridView==='grid'?' active':''}" onclick="setGridView('grid')">圖片版</button>
