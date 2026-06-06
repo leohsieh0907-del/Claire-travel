@@ -124,6 +124,34 @@ header nav a:hover,header nav a.active{color:var(--gold)}
 .info-card.wide{grid-column:1 / -1;background:#fffdf8;border-color:var(--gold)}
 .info-card.wide ul.two-col{columns:2;column-gap:30px}
 @media(max-width:680px){.info-card.wide ul.two-col{columns:1}}
+/* grid tools */
+.grid-tools{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.view-toggle{display:flex;border:1px solid var(--divider)}
+.vt{background:transparent;font-family:var(--label);letter-spacing:.1em;font-size:.74rem;color:var(--sage);padding:9px 18px;cursor:pointer;border:none}
+.vt.active{background:var(--pine);color:var(--ivory)}
+.gt-right{display:flex;gap:10px}
+.gt-btn{background:transparent;border:1px solid var(--divider);font-family:var(--label);letter-spacing:.08em;font-size:.74rem;color:var(--sage);padding:9px 16px;cursor:pointer}
+.gt-btn:hover{border-color:var(--sage);color:var(--pine)}
+.gt-btn.on{background:var(--gold);color:var(--pine);border-color:var(--gold)}
+.fav{position:absolute;top:16px;right:18px;background:rgba(244,239,230,.92);border:none;width:32px;height:32px;border-radius:50%;font-size:1.1rem;color:var(--gold);cursor:pointer;line-height:1;z-index:2;transition:transform .2s}
+.fav:hover{transform:scale(1.15)}
+.fav.on{color:#C4A35A}
+/* list view */
+.grid.listview{grid-template-columns:1fr;gap:14px}
+.isl.row{flex-direction:row}
+.isl.row .ph{width:180px;height:auto;min-height:120px;flex-shrink:0}
+.isl.row .fav{top:10px;right:10px;width:28px;height:28px;font-size:.95rem}
+@media(max-width:560px){.isl.row{flex-direction:column}.isl.row .ph{width:100%;height:160px}}
+/* compare table */
+.cmp-table-wrap{overflow-x:auto;margin-bottom:18px}
+.cmp-table{width:100%;border-collapse:collapse;min-width:560px}
+.cmp-table th{background:var(--pine);color:var(--ivory);font-family:var(--tc);font-weight:400;font-size:1rem;padding:14px 12px;text-align:center;letter-spacing:.04em}
+.cmp-table th:first-child{background:transparent}
+.cmp-table td{padding:13px 12px;text-align:center;border-bottom:1px solid var(--divider);font-size:.92rem;color:var(--charcoal)}
+.cmp-table td.rk{font-family:var(--label);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);text-align:left;white-space:nowrap}
+.cmp-table tbody tr:nth-child(odd) td:not(.rk){background:#fff}
+.cmp-go{background:var(--gold);color:var(--pine);border:none;font-family:var(--label);letter-spacing:.08em;font-size:.7rem;padding:8px 14px;cursor:pointer}
+.cmp-go:hover{background:#d6b76e}
 /* map */
 .islmap{height:400px;border:1px solid var(--divider);margin-bottom:10px;z-index:0}
 .islmap .leaflet-popup-content{font-family:var(--tc);font-size:.9rem}
@@ -728,19 +756,20 @@ function BORACAY_TEMPLATE(){return {
 const V=()=>document.getElementById('view');
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
+let _gridView='grid', _favOnly=false;
+function getFavs(){try{return JSON.parse(localStorage.getItem('jingsong_favs'))||[]}catch(e){return[]}}
+function isFav(k){return getFavs().includes(k)}
+function toggleFav(e,k){e.stopPropagation();let f=getFavs();f=f.includes(k)?f.filter(x=>x!==k):f.concat(k);localStorage.setItem('jingsong_favs',JSON.stringify(f));showGrid();}
+function setGridView(v){_gridView=v;showGrid();}
+function toggleFavOnly(){_favOnly=!_favOnly;showGrid();}
+
 function showGrid(){
-  V().innerHTML=`
-  <div class="intro">
-    <span class="label">Destinations</span>
-    <h2>下一座島，去哪裡？</h2>
-    <div class="sub">Pick an island. We'll plan the rest.</div>
-    <div class="line"></div>
-  </div>
-  <p class="family-note">以下為「5 大 2 小（11 歲＋6 歲）」家庭篩選 · 點選海島看完整建議</p>
-  <div class="grid">`+islands.map(i=>`
-    <div class="isl" onclick="showDetail('${i.key}')">
+  let list=_favOnly?islands.filter(i=>isFav(i.key)):islands;
+  const card=i=>`
+    <div class="isl${_gridView==='list'?' row':''}" onclick="showDetail('${i.key}')">
       <div class="ph" style="background:${i.grad}">
         ${i.badge?`<span class="badge">${i.badge}</span>`:''}
+        <button class="fav${isFav(i.key)?' on':''}" onclick="toggleFav(event,'${i.key}')" title="收藏">${isFav(i.key)?'★':'☆'}</button>
         <span class="flag">${i.flag}</span>
         <span class="en">${i.en}</span>
       </div>
@@ -751,7 +780,52 @@ function showGrid(){
         <p>${i.teaser}</p>
         <span class="view">查看完整建議 →</span>
       </div>
-    </div>`).join('')+`</div>`;
+    </div>`;
+  V().innerHTML=`
+  <div class="intro">
+    <span class="label">Destinations</span>
+    <h2>下一座島，去哪裡？</h2>
+    <div class="sub">Pick an island. We'll plan the rest.</div>
+    <div class="line"></div>
+  </div>
+  <p class="family-note">以下為「5 大 2 小（11 歲＋6 歲）」家庭篩選 · 點選海島看完整建議</p>
+  <div class="grid-tools">
+    <div class="view-toggle">
+      <button class="vt${_gridView==='grid'?' active':''}" onclick="setGridView('grid')">圖片版</button>
+      <button class="vt${_gridView==='list'?' active':''}" onclick="setGridView('list')">文字版</button>
+    </div>
+    <div class="gt-right">
+      <button class="gt-btn${_favOnly?' on':''}" onclick="toggleFavOnly()">❤ 只看收藏</button>
+      <button class="gt-btn" onclick="showCompare()">🆚 四島比較</button>
+    </div>
+  </div>
+  <div class="grid${_gridView==='list'?' listview':''}">${list.map(card).join('')||'<p style="color:var(--sage);grid-column:1/-1;text-align:center;padding:40px">還沒有收藏的海島，點卡片上的 ☆ 收藏。</p>'}</div>`;
+  window.scrollTo(0,0);
+}
+
+function showCompare(){
+  const FLIGHT={okinawa:'約 1.5 小時',bali:'約 5.5 小時',phuket:'約 3.5 小時',boracay:'約 3.5 小時＋轉船'};
+  const KID={okinawa:'★★★★★',bali:'★★★★☆',phuket:'★★★★☆',boracay:'★★★★☆'};
+  const rows=[
+    ['建議天數',i=>i.days],
+    ['旅行風格',i=>i.style],
+    ['自由行 / 人',i=>i.compare?i.compare.free.perPerson:'—'],
+    ['跟團 / 人',i=>i.compare?i.compare.tour.perPerson:'—'],
+    ['飛行時間',i=>FLIGHT[i.key]||'—'],
+    ['親子適合',i=>KID[i.key]||'—']
+  ];
+  V().innerHTML=`<div class="detail">
+    <span class="back" onclick="showGrid()">← 回到所有海島</span>
+    <div class="intro"><span class="label">Compare</span><h2>四島一覽比較</h2><div class="line"></div></div>
+    <div class="cmp-table-wrap"><table class="cmp-table">
+      <thead><tr><th></th>${islands.map(i=>`<th>${i.flag}<br>${i.name}</th>`).join('')}</tr></thead>
+      <tbody>
+        ${rows.map(r=>`<tr><td class="rk">${r[0]}</td>${islands.map(i=>`<td>${r[1](i)}</td>`).join('')}</tr>`).join('')}
+        <tr><td class="rk"></td>${islands.map(i=>`<td><button class="cmp-go" onclick="showDetail('${i.key}')">看詳情</button></td>`).join('')}</tr>
+      </tbody>
+    </table></div>
+    <p class="cmp-note">價格為 5 大 2 小暑假估算，實際依航班與飯店浮動。</p>
+  </div>`;
   window.scrollTo(0,0);
 }
 
