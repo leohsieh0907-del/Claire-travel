@@ -757,6 +757,27 @@ const V=()=>document.getElementById('view');
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
 let _gridView='grid', _favOnly=false;
+const REGION={okinawa:'日本',bali:'印尼',phuket:'泰國',boracay:'菲律賓'};
+const MONTH_TIP={
+  '1':'1月：日本可賞雪泡湯，東南亞為乾季舒適','2':'2月：東南亞乾季宜人，農曆春節機票貴',
+  '3':'3月：氣候舒適、人潮少，CP 值高','4':'4月：泰國潑水節熱鬧，天氣漸熱',
+  '5':'5月：東南亞進入雨季前緣，沖繩舒適','6':'6月：暑假前夕，沖繩梅雨、東南亞雨季',
+  '7':'7月：暑假旺季，機票飯店貴、較熱，提早 3 個月訂','8':'8月：暑假旺季同上，留意颱風',
+  '9':'9月：暑假後降價，留意颱風季','10':'10月：秋高氣爽，沖繩最舒適',
+  '11':'11月：東南亞進乾季、沖繩涼爽宜人','12':'12月：耶誕跨年旺季，機票偏貴'
+};
+let _filters={region:'',days:'',budget:'',month:''};
+function setFilter(k,v){_filters[k]=v;showGrid();}
+function islMinDays(i){const m=(i.days||'').match(/\d+/);return m?+m[0]:99;}
+function islPrice(i){if(!i.compare)return 0;const m=i.compare.free.perPerson.replace(/[^\d]/g,'');return +m||0;}
+function passFilter(i){
+  if(_filters.region && REGION[i.key]!==_filters.region) return false;
+  if(_filters.days==='short' && islMinDays(i)>5) return false;
+  if(_filters.days==='long' && islMinDays(i)<6) return false;
+  if(_filters.budget==='low' && islPrice(i)>30000) return false;
+  if(_filters.budget==='high' && islPrice(i)<=30000) return false;
+  return true;
+}
 function getFavs(){try{return JSON.parse(localStorage.getItem('jingsong_favs'))||[]}catch(e){return[]}}
 function isFav(k){return getFavs().includes(k)}
 function toggleFav(e,k){e.stopPropagation();let f=getFavs();f=f.includes(k)?f.filter(x=>x!==k):f.concat(k);localStorage.setItem('jingsong_favs',JSON.stringify(f));showGrid();}
@@ -764,7 +785,8 @@ function setGridView(v){_gridView=v;showGrid();}
 function toggleFavOnly(){_favOnly=!_favOnly;showGrid();}
 
 function showGrid(){
-  let list=_favOnly?islands.filter(i=>isFav(i.key)):islands;
+  let list=islands.filter(passFilter);
+  if(_favOnly) list=list.filter(i=>isFav(i.key));
   const card=i=>`
     <div class="isl${_gridView==='list'?' row':''}" onclick="showDetail('${i.key}')">
       <div class="ph" style="background:${i.grad}">
@@ -789,6 +811,39 @@ function showGrid(){
     <div class="line"></div>
   </div>
   <p class="family-note">以下為「5 大 2 小（11 歲＋6 歲）」家庭篩選 · 點選海島看完整建議</p>
+  <div class="filter-bar">
+    <label>地區
+      <select onchange="setFilter('region',this.value)">
+        <option value=""${_filters.region===''?' selected':''}>不限</option>
+        <option value="日本"${_filters.region==='日本'?' selected':''}>日本</option>
+        <option value="泰國"${_filters.region==='泰國'?' selected':''}>泰國</option>
+        <option value="印尼"${_filters.region==='印尼'?' selected':''}>印尼</option>
+        <option value="菲律賓"${_filters.region==='菲律賓'?' selected':''}>菲律賓</option>
+      </select>
+    </label>
+    <label>天數
+      <select onchange="setFilter('days',this.value)">
+        <option value=""${_filters.days===''?' selected':''}>不限</option>
+        <option value="short"${_filters.days==='short'?' selected':''}>5 天以內</option>
+        <option value="long"${_filters.days==='long'?' selected':''}>6 天以上</option>
+      </select>
+    </label>
+    <label>預算 / 人
+      <select onchange="setFilter('budget',this.value)">
+        <option value=""${_filters.budget===''?' selected':''}>不限</option>
+        <option value="low"${_filters.budget==='low'?' selected':''}>3 萬以內</option>
+        <option value="high"${_filters.budget==='high'?' selected':''}>3 萬以上</option>
+      </select>
+    </label>
+    <label>出發月份
+      <select onchange="setFilter('month',this.value)">
+        <option value=""${_filters.month===''?' selected':''}>不限</option>
+        ${[1,2,3,4,5,6,7,8,9,10,11,12].map(m=>`<option value="${m}"${_filters.month==String(m)?' selected':''}>${m} 月</option>`).join('')}
+      </select>
+    </label>
+    ${(_filters.region||_filters.days||_filters.budget||_filters.month)?`<button class="filter-clear" onclick="_filters={region:'',days:'',budget:'',month:''};showGrid()">✕ 清除</button>`:''}
+  </div>
+  ${_filters.month&&MONTH_TIP[_filters.month]?`<p class="month-tip">📅 ${MONTH_TIP[_filters.month]}</p>`:''}
   <div class="grid-tools">
     <div class="view-toggle">
       <button class="vt${_gridView==='grid'?' active':''}" onclick="setGridView('grid')">圖片版</button>
