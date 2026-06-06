@@ -14,6 +14,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="cloud-common.js"></script>
 <style>
 :root{
   --pine:#1C3A2D; --gold:#C4A35A; --sage:#8A9E8F;
@@ -148,12 +153,11 @@ footer{background:var(--charcoal);color:rgba(244,239,230,.55);text-align:center;
 <input type="file" id="importFile" accept=".json" style="display:none">
 
 <script>
-const KEY='jingsong_journal_v1';
-let posts=load();
+const POSTS=db.collection('posts');
+let posts=[];
 let draftImgs=[]; let draftCover='';
+let _view='list';
 
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(posts))}catch(e){alert('儲存空間已滿（照片佔用較多）。建議：先「匯出備份」，或減少單篇照片數量。')}}
 function uid(){return 'p'+Date.now()+Math.floor(Math.random()*999)}
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00');return`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`}

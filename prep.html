@@ -13,6 +13,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="cloud-common.js"></script>
 <style>
 :root{--pine:#1C3A2D;--gold:#C4A35A;--sage:#8A9E8F;--charcoal:#2C2C2C;--ivory:#F4EFE6;--divider:#D2CABE;
 --serif:'Cormorant Garamond',serif;--tc:'Noto Serif TC',serif;--label:'Jura',sans-serif;}
@@ -132,7 +137,8 @@ footer{background:var(--charcoal);color:rgba(244,239,230,.55);text-align:center;
 <footer>璟松 · JING SONG · 為自己而旅行</footer>
 
 <script>
-const PK_KEY='jingsong_packing_v1', BD_KEY='jingsong_budget_v1';
+const PK_DOC=db.collection('appdata').doc('packing');
+const BD_DOC=db.collection('appdata').doc('budget');
 
 const DEFAULT_PACKING=[
   {cat:'證件・財務',items:['護照（效期滿6個月）','簽證／落地簽','機票／訂房確認單','現金與外幣','信用卡','旅平險＋醫療險保單','駕照日文譯本（自駕）']},
@@ -144,10 +150,9 @@ const DEFAULT_PACKING=[
   {cat:'海島專用',items:['浮潛面鏡／呼吸管','防水袋／防水手機套','夾鏈袋','輕便雨衣']}
 ];
 
-let packing=loadPacking();
-function loadPacking(){try{const d=JSON.parse(localStorage.getItem(PK_KEY));if(d&&d.length)return d}catch(e){}
-  return DEFAULT_PACKING.map(c=>({cat:c.cat,items:c.items.map(t=>({t,done:false}))}));}
-function savePacking(){localStorage.setItem(PK_KEY,JSON.stringify(packing))}
+function defaultPacking(){return DEFAULT_PACKING.map(c=>({cat:c.cat,items:c.items.map(t=>({t,done:false}))}));}
+let packing=defaultPacking();
+function savePacking(){PK_DOC.set({data:packing}).catch(e=>alert('雲端儲存失敗：'+e.message))}
 
 function renderPacking(){
   let total=0,done=0;
@@ -172,12 +177,11 @@ function renderPacking(){
 function togglePk(ci,ii){packing[ci].items[ii].done=!packing[ci].items[ii].done;savePacking();renderPacking()}
 function rmPk(e,ci,ii){e.preventDefault();packing[ci].items.splice(ii,1);savePacking();renderPacking()}
 function addPk(ci){const el=document.getElementById('pkadd'+ci);const v=el.value.trim();if(!v)return;packing[ci].items.push({t:v,done:false});savePacking();renderPacking()}
-function resetPacking(){if(!confirm('重設為預設清單？目前的勾選與自訂項目會清除。'))return;localStorage.removeItem(PK_KEY);packing=loadPacking();savePacking();renderPacking()}
+function resetPacking(){if(!confirm('重設為預設清單？目前的勾選與自訂項目會清除。'))return;packing=defaultPacking();savePacking();renderPacking()}
 
 // budget
-let budget=loadBudget();
-function loadBudget(){try{return JSON.parse(localStorage.getItem(BD_KEY))||{items:[],people:7}}catch(e){return {items:[],people:7}}}
-function saveBudget(){localStorage.setItem(BD_KEY,JSON.stringify(budget))}
+let budget={items:[],people:7};
+function saveBudget(){BD_DOC.set({data:budget}).catch(e=>alert('雲端儲存失敗：'+e.message))}
 function renderBudget(){
   const total=budget.items.reduce((s,i)=>s+(+i.amt||0),0);
   const ppl=budget.people||1;
@@ -209,7 +213,10 @@ function switchTab(t){
   document.getElementById('panel-budget').classList.toggle('active',t==='budget');
 }
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-renderPacking();renderBudget();
+cloudReady(()=>{
+  PK_DOC.onSnapshot(s=>{packing=(s.exists&&Array.isArray(s.data().data))?s.data().data:defaultPacking();renderPacking();},e=>alert('雲端讀取失敗：'+e.message));
+  BD_DOC.onSnapshot(s=>{budget=(s.exists&&s.data().data)?s.data().data:{items:[],people:7};renderBudget();},e=>alert('雲端讀取失敗：'+e.message));
+});
 </script>
 </body>
 </html>
