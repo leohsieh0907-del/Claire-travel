@@ -14,6 +14,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jura:wght@300;400;500&family=Noto+Serif+TC:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="cloud-common.js"></script>
 <style>
 :root{
   --pine:#1C3A2D; --gold:#C4A35A; --sage:#8A9E8F;
@@ -203,13 +208,12 @@ a.place:hover{color:var(--gold)}
 </div>
 
 <script>
-const KEY='jingsong_trips_v1';
-let trips=load();
-let activeId=trips[0]?.id||null;
+const DOC=db.collection('appdata').doc('trips');
+let trips=[];
+let activeId=null;
 let editTripId=null, targetDayIdx=null;
 
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return []}}
-function save(){localStorage.setItem(KEY,JSON.stringify(trips))}
+function save(){DOC.set({list:trips,updated:Date.now()}).catch(e=>alert('雲端儲存失敗：'+e.message))}
 function uid(){return 't'+Date.now()+Math.floor(Math.random()*999)}
 function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00');return`${d.getMonth()+1}/${d.getDate()}`}
 function fmtFull(s){if(!s)return'';const d=new Date(s+'T00:00');const w=['日','一','二','三','四','五','六'][d.getDay()];return`${d.getMonth()+1}月${d.getDate()}日 (${w})`}
@@ -319,19 +323,23 @@ function importData(ev){const f=ev.target.files[0];if(!f)return;
     if(confirm('匯入將覆蓋目前所有旅程，確定？')){trips=d;activeId=trips[0]?.id||null;save();render()}
   }catch(e){alert('檔案格式錯誤')}};r.readAsText(f);ev.target.value=''}
 
-// seed example on first visit
-if(trips.length===0){
-  trips=[{id:uid(),name:'京都的秋天',dest:'日本 · 京都',start:'2026-11-15',end:'2026-11-17',
-    days:[
-      {events:[{time:'09:30',title:'清水寺 晨間參拜',place:'東山區清水',note:'避開午後人潮，早上光線最美'},
-               {time:'12:00',title:'二年坂 · 三年坂散策',place:'產寧坂',note:'午餐：順正湯豆腐'},
-               {time:'16:00',title:'八坂神社 → 祇園',place:'祇園',note:'黃昏時分石板路最有味道'}]},
-      {events:[{time:'08:00',title:'嵐山 竹林之道',place:'嵯峨嵐山',note:'搭嵐電前往，越早越靜'},
-               {time:'10:30',title:'天龍寺 庭園',place:'嵐山',note:'借景庭園，秋楓必看'}]},
-      {events:[{time:'10:00',title:'伏見稻荷大社 千本鳥居',place:'伏見區',note:'登山約2小時，量力而為'}]}
-    ]}];
-  activeId=trips[0].id;save();
-}
+// 雲端同步：登入後即時讀取，多裝置自動更新
+let _firstSnap=true;
+cloudReady(()=>{
+  DOC.onSnapshot(snap=>{
+    trips = (snap.exists && Array.isArray(snap.data().list)) ? snap.data().list : [];
+    // 吸收從「目的地」一鍵載入暫存的行程
+    if(_firstSnap){
+      _firstSnap=false;
+      try{
+        const pend=JSON.parse(localStorage.getItem('jingsong_pending_trip'));
+        if(pend){pend.id='trip_'+Date.now()+Math.floor(Math.random()*999);trips.push(pend);localStorage.removeItem('jingsong_pending_trip');DOC.set({list:trips,updated:Date.now()});activeId=pend.id;}
+      }catch(e){}
+    }
+    if(!trips.find(t=>t.id===activeId)) activeId=trips[0]?.id||null;
+    render();
+  },err=>{alert('雲端讀取失敗：'+err.message)});
+});
 render();
 </script>
 </body>

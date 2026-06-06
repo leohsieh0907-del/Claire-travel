@@ -849,12 +849,9 @@ function initMap(m){
 function loadTemplate(key){
   const i=islands.find(x=>x.key===key);
   if(!i||!i.template){return;}
-  let trips=[];try{trips=JSON.parse(localStorage.getItem('jingsong_trips_v1'))||[]}catch(e){}
   const t=JSON.parse(JSON.stringify(i.template));
-  t.id='trip_'+Date.now()+Math.floor(Math.random()*999);
-  trips.push(t);
-  try{localStorage.setItem('jingsong_trips_v1',JSON.stringify(trips));}
-  catch(e){alert('儲存空間不足，請先到行程規劃整理。');return;}
+  localStorage.setItem('jingsong_pending_trip',JSON.stringify(t));
+  alert('已選好「'+i.name+'」行程！\n接著請在行程規劃頁登入，行程會自動加入你的雲端帳號。');
   location.href='itinerary.html';
 }
 
