@@ -967,11 +967,11 @@ function showGrid(){
   V().innerHTML=`
   <div class="intro">
     <span class="label">Destinations</span>
-    <h2>下一座島，去哪裡？</h2>
-    <div class="sub">Pick an island. We'll plan the rest.</div>
+    <h2>下一個目的地，去哪裡？</h2>
+    <div class="sub">Pick a destination. We'll plan the rest.</div>
     <div class="line"></div>
   </div>
-  <p class="family-note">以下為「5 大 2 小（11 歲＋6 歲）」家庭篩選 · 點選海島看完整建議</p>
+  <p class="family-note">以下為「5 大 2 小（11 歲＋6 歲）」家庭篩選 · 點選目的地看完整建議</p>
   <div class="filter-bar">
     <label>地區
       <select onchange="setFilter('region',this.value)">
@@ -1005,10 +1005,10 @@ function showGrid(){
     </div>
     <div class="gt-right">
       <button class="gt-btn${_favOnly?' on':''}" onclick="toggleFavOnly()">❤ 只看收藏</button>
-      <button class="gt-btn" onclick="showCompare()">🆚 四島比較</button>
+      <button class="gt-btn" onclick="showCompare()">🆚 目的地比較</button>
     </div>
   </div>
-  <div class="grid${_gridView==='list'?' listview':''}">${list.map(card).join('')||'<p style="color:var(--sage);grid-column:1/-1;text-align:center;padding:40px">還沒有收藏的海島，點卡片上的 ☆ 收藏。</p>'}</div>`;
+  <div class="grid${_gridView==='list'?' listview':''}">${list.map(card).join('')||'<p style="color:var(--sage);grid-column:1/-1;text-align:center;padding:40px">還沒有收藏的目的地，點卡片上的 ☆ 收藏。</p>'}</div>`;
   window.scrollTo(0,0);
 }
 
@@ -1024,7 +1024,7 @@ function showCompare(){
     ['親子適合',i=>KID[i.key]||'—']
   ];
   V().innerHTML=`<div class="detail">
-    <span class="back" onclick="showGrid()">← 回到所有海島</span>
+    <span class="back" onclick="showGrid()">← 回到所有目的地</span>
     <div class="intro"><span class="label">Compare</span><h2>四島一覽比較</h2><div class="line"></div></div>
     <div class="cmp-table-wrap"><table class="cmp-table">
       <thead><tr><th></th>${islands.map(i=>`<th>${i.flag}<br>${i.name}</th>`).join('')}</tr></thead>
@@ -1085,7 +1085,7 @@ function infoHTML(n){
 function showDetail(key){
   const i=islands.find(x=>x.key===key);if(!i)return showGrid();
   V().innerHTML=`<div class="detail">
-    <span class="back" onclick="showGrid()">← 回到所有海島</span>
+    <span class="back" onclick="showGrid()">← 回到所有目的地</span>
     <div class="d-hero" style="background:${i.grad}">
       <span class="flag">${i.flag}</span>
       <div class="en">${i.en}</div>
