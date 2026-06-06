@@ -757,7 +757,7 @@ const V=()=>document.getElementById('view');
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
 let _gridView='grid', _favOnly=false;
-const REGION={okinawa:'日本',bali:'印尼',phuket:'泰國',boracay:'菲律賓'};
+const REGION={okinawa:'日本',bali:'東南亞',phuket:'東南亞',boracay:'東南亞',seoul:'韓國',danang:'越南'};
 const MONTH_TIP={
   '1':'1月：日本可賞雪泡湯，東南亞為乾季舒適','2':'2月：東南亞乾季宜人，農曆春節機票貴',
   '3':'3月：氣候舒適、人潮少，CP 值高','4':'4月：泰國潑水節熱鬧，天氣漸熱',
@@ -818,6 +818,7 @@ function showGrid(){
         <option value="日本"${_filters.region==='日本'?' selected':''}>日本</option>
         <option value="韓國"${_filters.region==='韓國'?' selected':''}>韓國</option>
         <option value="越南"${_filters.region==='越南'?' selected':''}>越南</option>
+        <option value="東南亞"${_filters.region==='東南亞'?' selected':''}>東南亞</option>
       </select>
     </label>
     <label>天數
