@@ -109,6 +109,11 @@ header nav a:hover,header nav a.active{color:var(--gold)}
 .cmp-cost td{font-size:.86rem;padding:5px 0;border-bottom:1px dotted #e6e0d4;color:var(--charcoal)}
 .cmp-cost td:last-child{text-align:right;color:var(--pine);white-space:nowrap;padding-left:10px}
 .cmp-note{font-size:.8rem;color:var(--sage);margin-bottom:36px;line-height:1.7}
+.cmp-tips,.cmp-agency{list-style:none;margin:0}
+.cmp-tips li,.cmp-agency li{font-size:.86rem;line-height:1.7;margin-bottom:8px;padding-left:18px;position:relative;color:var(--charcoal)}
+.cmp-tips li::before{content:'✦';position:absolute;left:0;color:var(--gold);font-size:.78rem}
+.cmp-agency li::before{content:'▸';position:absolute;left:2px;color:var(--sage)}
+.cmp-agency li b{color:var(--pine)}
 /* info */
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:38px}
 @media(max-width:680px){.info-grid{grid-template-columns:1fr}}
@@ -236,7 +241,15 @@ const islands=[
           ['網卡・雜支','約 10,000']
         ],
         pros:['行程完全自訂、節奏自由','可避開購物站與人潮','飯店餐廳自己挑，吃得更好','小孩想多待就多待'],
-        cons:['需自己訂機酒、排行程','要自駕、看路況','旺季訂房卡位較費心']
+        cons:['需自己訂機酒、排行程','要自駕、看路況','旺季訂房卡位較費心'],
+        tips:[
+          '機票：虎航／樂桃／星宇直飛那霸，暑假提早 3 個月訂，平日出發較便宜',
+          '租車：OTS／Times／OリックスORIX，線上預約附中文導航與兒童座椅，取機場店',
+          '訂房：Jalan／樂天 Travel（日本當地）常比國際平台便宜，可累點',
+          '必備 App：Google Maps、たびらい租車、Tabelog 找餐廳、NAVITIME',
+          '省錢：唐吉訶德／AEON 滿額免稅退稅、超商先買 OPEN 票券、自駕省交通費',
+          '行程節奏：北部（美麗海）排一整天、南部一天、恩納海邊留半天耍廢'
+        ]
       },
       tour:{
         title:'旅行社 · 跟團', perPerson:'約 NT$ 31,000 / 人起', family:'7 人約 NT$ 210,000 起',
@@ -253,7 +266,13 @@ const islands=[
           ['個人購物','自理']
         ],
         pros:['機酒車一次搞定，最省事','有導遊、長輩最輕鬆','價格透明、預算好抓'],
-        cons:['行程固定，含購物站','用餐與節奏受團體限制','熱門點停留時間短','嬰幼兒較難配合團體']
+        cons:['行程固定，含購物站','用餐與節奏受團體限制','熱門點停留時間短','嬰幼兒較難配合團體'],
+        agencies:[
+          {name:'雄獅旅遊',note:'沖繩團選擇最多，親子團、自由配套都有'},
+          {name:'可樂旅遊',note:'大型口碑社，包機團多、出發日彈性'},
+          {name:'東南旅遊',note:'行程穩定、導遊評價佳'},
+          {name:'KKday／Klook',note:'半自助：自己訂機酒、買當地票券與一日遊'}
+        ]
       }
     },
     info:{
@@ -2125,6 +2144,12 @@ function compareHTML(c){
       <div class="cmp-sec"><div class="cmp-k">要留意</div>
         <ul class="cmp-con">${d.cons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
       </div>
+      ${d.tips?`<div class="cmp-sec"><div class="cmp-k">自由行實用攻略</div>
+        <ul class="cmp-tips">${d.tips.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      </div>`:''}
+      ${d.agencies?`<div class="cmp-sec"><div class="cmp-k">推薦旅行社</div>
+        <ul class="cmp-agency">${d.agencies.map(a=>`<li><b>${esc(a.name)}</b> — ${esc(a.note)}</li>`).join('')}</ul>
+      </div>`:''}
     </div>`;
   return `<h4 style="margin-top:8px">自由行 vs 旅行社</h4>
     <div class="cmp-grid">${col(c.free,true)}${col(c.tour,false)}</div>
