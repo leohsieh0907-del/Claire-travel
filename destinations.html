@@ -2124,8 +2124,71 @@ function showCompare(){
   window.scrollTo(0,0);
 }
 
-function compareHTML(c){
-  const col=(d,accent)=>`
+const REGION_TIPS={
+  '日本':[
+    '機票：虎航／樂桃／星宇等廉航，暑假提早 3 個月訂，平日出發較便宜',
+    '訂房：Jalan／樂天 Travel（日本當地）常比國際平台划算、可累點',
+    '交通：JR Pass／Suica／ICOCA 嗶卡；跨城市新幹線先比 Klook 票券',
+    '必備 App：Google Maps、Tabelog 找餐廳、NAVITIME 轉乘',
+    '退稅：單店滿 5,500 日圓可退稅，記得帶護照；唐吉訶德／AEON 好買',
+    '省錢：超商先買票券、自駕省交通、平日門票較便宜'
+  ],
+  '韓國':[
+    '機票：濟州航空／真航空／韓亞等，暑假提早訂；釜山濟州也有直飛',
+    '入境：依規定申請 K-ETA、填 Q-code 健康申報',
+    '交通：T-money 嗶卡搭地鐵公車；Kakao T 叫車',
+    '必備 App：Naver Map／Kakao Map（Google Maps 在韓國不準）、Papago 翻譯',
+    '換錢：明洞／南浦洞換錢所匯率較好',
+    '退稅：Global Blue／Global Tax Free，機場退稅'
+  ],
+  '越南':[
+    '機票：越捷／越竹／長榮等，多為廉航或需轉機，提早訂',
+    '簽證：出發前線上辦 e-Visa（電子簽證）',
+    '交通：Grab 叫車透明便宜；長程包車含司機',
+    '必備 App：Grab、Google Maps、XE 匯率',
+    '換匯：帶美金當地換越南盾，大鈔匯率較好',
+    '⚠️ 生水不生飲、喝瓶裝水；備腸胃藥與防蚊'
+  ],
+  '東南亞':[
+    '機票：酷航／亞航／長榮等，廉航暑假提早訂',
+    '簽證：泰國免簽、新加坡免簽、印尼落地簽 eVOA（依國家確認）',
+    '交通：Grab／Bolt 叫車透明；新加坡用地鐵 EZ-Link',
+    '必備 App：Grab、Google Maps、當地匯率 App',
+    '換匯：帶美金當地換、或機場 ATM 提領',
+    '⚠️ 生水不生飲、喝瓶裝水、注意防曬防蚊'
+  ]
+};
+const REGION_AGENCIES={
+  '日本':[
+    {name:'雄獅旅遊',note:'日本團選擇最多，親子團與自由配套都有'},
+    {name:'可樂旅遊',note:'大型口碑社，包機團多、出發日彈性'},
+    {name:'東南旅遊',note:'行程穩定、導遊評價佳'},
+    {name:'KKday／Klook',note:'半自助：自己訂機酒、買票券與一日遊'}
+  ],
+  '韓國':[
+    {name:'雄獅旅遊',note:'韓國團豐富，首爾／釜山／濟州都有'},
+    {name:'可樂旅遊',note:'大型口碑社、出發日多'},
+    {name:'東南旅遊',note:'行程穩定、價格透明'},
+    {name:'KKday／Klook',note:'半自助：樂園門票、一日遊'}
+  ],
+  '越南':[
+    {name:'雄獅旅遊',note:'峴港／富國島團多，度假村配套'},
+    {name:'五福旅遊',note:'東南亞線經營深、評價佳'},
+    {name:'山富旅遊',note:'峴港會安行程穩定'},
+    {name:'KKday／Klook',note:'半自助：包車、一日遊、樂園票'}
+  ],
+  '東南亞':[
+    {name:'雄獅旅遊',note:'東南亞全線，親子度假配套多'},
+    {name:'東南旅遊',note:'老牌、行程穩定'},
+    {name:'山富旅遊',note:'海島與城市團豐富'},
+    {name:'KKday／Klook',note:'半自助：跳島、樂園、接送票券'}
+  ]
+};
+
+function compareHTML(c,region){
+  const tipsFor=d=>d.tips||(region&&REGION_TIPS[region])||null;
+  const agencyFor=d=>d.agencies||(region&&REGION_AGENCIES[region])||null;
+  const col=(d,accent,isFree)=>`
     <div class="cmp-col${accent?' accent':''}">
       <div class="cmp-h">
         <h5>${d.title}</h5>
@@ -2144,15 +2207,15 @@ function compareHTML(c){
       <div class="cmp-sec"><div class="cmp-k">要留意</div>
         <ul class="cmp-con">${d.cons.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
       </div>
-      ${d.tips?`<div class="cmp-sec"><div class="cmp-k">自由行實用攻略</div>
-        <ul class="cmp-tips">${d.tips.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      ${isFree&&tipsFor(d)?`<div class="cmp-sec"><div class="cmp-k">自由行實用攻略</div>
+        <ul class="cmp-tips">${tipsFor(d).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
       </div>`:''}
-      ${d.agencies?`<div class="cmp-sec"><div class="cmp-k">推薦旅行社</div>
-        <ul class="cmp-agency">${d.agencies.map(a=>`<li><b>${esc(a.name)}</b> — ${esc(a.note)}</li>`).join('')}</ul>
+      ${!isFree&&agencyFor(d)?`<div class="cmp-sec"><div class="cmp-k">推薦旅行社</div>
+        <ul class="cmp-agency">${agencyFor(d).map(a=>`<li><b>${esc(a.name)}</b> — ${esc(a.note)}</li>`).join('')}</ul>
       </div>`:''}
     </div>`;
   return `<h4 style="margin-top:8px">自由行 vs 旅行社</h4>
-    <div class="cmp-grid">${col(c.free,true)}${col(c.tour,false)}</div>
+    <div class="cmp-grid">${col(c.free,true,true)}${col(c.tour,false,false)}</div>
     <p class="cmp-note">${esc(c.note)}</p>`;
 }
 
