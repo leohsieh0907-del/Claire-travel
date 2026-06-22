@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>匯率・時差・電壓換算 · 自由行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+.tool-wrap{max-width:760px;margin:0 auto;padding:32px 24px 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:18px}
+.card h3{font-family:var(--serif);font-size:1.15rem;color:var(--ink);margin-bottom:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end}
+.row label{font-size:.82rem;font-weight:600;display:block;margin-bottom:5px}
+.row input,.row select{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:8px;font-size:.95rem;font-family:var(--sans)}
+.out{font-family:var(--serif);font-size:1.6rem;color:var(--accent);margin-top:14px}
+.info-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.info-table td{padding:8px 0;border-bottom:1px dotted var(--line)}
+.info-table td:last-child{text-align:right;font-weight:600;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap in">
+  <a class="logo" href="../index.html"><span class="dot"></span>自由行</a>
+  <nav><a href="../index.html">目的地</a><a href="#">主題攻略</a><a href="budget.html">工具</a></nav>
+</div></div>
+
+<div class="tool-wrap">
+  <div class="sec-head"><span class="label">Tool</span><h2>🔄 匯率・時差・電壓</h2></div>
+
+  <div class="card">
+    <h3>💱 匯率換算</h3>
+    <div class="row">
+      <div><label>金額</label><input type="number" id="amt" value="10000"></div>
+      <div><label>幣別</label><select id="cur"></select></div>
+    </div>
+    <div class="out" id="fxOut"></div>
+    <p style="font-size:.78rem;color:var(--ink-soft);margin-top:8px" id="fxNote"></p>
+  </div>
+
+  <div class="card">
+    <h3>🕐 時差（與台灣比）</h3>
+    <table class="info-table" id="tzTable"></table>
+  </div>
+
+  <div class="card">
+    <h3>🔌 電壓與插頭（台灣 110V／A 型）</h3>
+    <table class="info-table" id="powerTable"></table>
+    <p style="font-size:.8rem;color:var(--ink-soft);margin-top:10px">多數手機/筆電充電器支援 100–240V 全球通用，只需轉接頭；高功率電器（吹風機等）需確認電壓。</p>
+  </div>
+</div>
+
+<footer><div class="wrap">© 2026 自由行資訊站</div></footer>
+<script>
+const TZ=[['日本','+1 小時'],['韓國','+1 小時'],['泰國','-1 小時'],['越南','-1 小時'],['新加坡','0（同台灣）'],['印尼峇里','0（同台灣）'],['菲律賓','0（同台灣）']];
+const POWER=[['日本','100V / A 型','同台灣插頭，可直接用'],['韓國','220V / C・F 型','需轉接頭'],['泰國','220V / A・C 型','部分同台灣，建議帶轉接'],['越南','220V / A・C 型','部分同台灣'],['新加坡','230V / G 型（三孔）','需轉接頭'],['印尼','220V / C 型','需轉接頭'],['菲律賓','220V / A 型','插頭同台灣但電壓不同']];
+let RATES={rates:{},lastUpdated:''};
+fetch('../data/rates.json').then(r=>r.json()).then(d=>{RATES=d;initCur();fx();});
+function initCur(){const s=document.getElementById('cur');const names={JPY:'日圓',KRW:'韓元',THB:'泰銖',VND:'越南盾',USD:'美元',SGD:'新加坡幣',IDR:'印尼盾',PHP:'披索',MYR:'馬幣',EUR:'歐元'};
+  Object.keys(RATES.rates).forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c+'（'+(names[c]||c)+'）';s.appendChild(o);});}
+function fx(){const amt=+document.getElementById('amt').value||0;const cur=document.getElementById('cur').value;const r=RATES.rates[cur];
+  document.getElementById('fxOut').textContent='≈ NT$ '+Math.round(amt*r).toLocaleString();
+  document.getElementById('fxNote').textContent='參考匯率 1 '+cur+' = '+r+' TWD ｜ 更新 '+RATES.lastUpdated+'，實際以刷卡/銀行為準';}
+document.getElementById('amt').addEventListener('input',fx);
+document.getElementById('cur').addEventListener('change',fx);
+document.getElementById('tzTable').innerHTML=TZ.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td></tr>`).join('');
+document.getElementById('powerTable').innerHTML=POWER.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}<br><span style="font-weight:400;color:var(--ink-soft);font-size:.82rem">${p[2]}</span></td></tr>`).join('');
+</script>
+</body>
+</html>
