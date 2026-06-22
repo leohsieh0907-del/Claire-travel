@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的行程 · 自由行</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="content/index.js"></script>
+</head>
+<body>
+<div class="topbar"><div class="wrap in">
+  <a class="logo" href="index.html"><span class="dot"></span>自由行</a>
+  <nav><a href="index.html">目的地</a><a href="#">主題攻略</a><a href="index.html#tools">工具</a><a href="my-trips.html">我的行程</a></nav>
+</div></div>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="label">My Trips</span><h2>我的收藏</h2></div>
+  <p style="color:var(--ink-soft);margin-bottom:24px">收藏的目的地存在這台裝置的瀏覽器，免登入。</p>
+  <div class="dest-grid" id="grid"></div>
+</div></section>
+
+<footer><div class="wrap">© 2026 自由行資訊站</div></footer>
+<script>
+function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function getFavs(){try{return JSON.parse(localStorage.getItem('ziyou_favs'))||[]}catch(e){return[]}}
+function unfav(e,s){e.preventDefault();let f=getFavs().filter(x=>x!==s);localStorage.setItem('ziyou_favs',JSON.stringify(f));render();}
+function render(){
+  const favs=getFavs();
+  const list=(window.CONTENT_INDEX||[]).filter(d=>favs.includes(d.slug));
+  const grid=document.getElementById('grid');
+  if(!list.length){grid.innerHTML='<p style="color:var(--ink-soft);grid-column:1/-1;text-align:center;padding:60px">還沒有收藏。到<a href="index.html" style="color:var(--accent)">目的地</a>點卡片上的 ☆ 收藏想去的地方。</p>';return;}
+  grid.innerHTML=list.map(d=>`
+    <a class="dcard" href="city.html?city=${d.slug}">
+      <div class="ph"><span class="flag">${d.flag}</span><span class="en">${esc(d.titleEn||'')}</span>
+        <button class="favstar on" onclick="unfav(event,'${d.slug}')">★</button></div>
+      <div class="body"><h3>${esc(d.title)}</h3>
+        <div class="meta">${esc(d.country)} ｜ 建議 ${esc(d.days)}</div>
+        <p>${esc(d.summary)}</p><div class="enter">看城市概覽 →</div></div>
+    </a>`).join('');
+}
+render();
+</script>
+</body>
+</html>
