@@ -130,9 +130,11 @@ footer{background:var(--charcoal);color:rgba(244,239,230,.55);text-align:center;
   <div class="tabs">
     <button class="tab active" onclick="switchTab('packing')">🧳 行李清單</button>
     <button class="tab" onclick="switchTab('budget')">💰 旅遊預算</button>
+    <button class="tab" onclick="switchTab('converter')">🔄 匯率換算</button>
   </div>
   <div class="panel active" id="panel-packing"></div>
   <div class="panel" id="panel-budget"></div>
+  <div class="panel" id="panel-converter"></div>
 </div>
 <footer>璟松 · JING SONG · 為自己而旅行</footer>
 
@@ -208,11 +210,38 @@ function rmBd(ix){budget.items.splice(ix,1);saveBudget();renderBudget()}
 function setPeople(v){budget.people=Math.max(1,+v||1);saveBudget();renderBudget()}
 
 function switchTab(t){
-  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',(t==='packing')===(i===0)));
-  document.getElementById('panel-packing').classList.toggle('active',t==='packing');
-  document.getElementById('panel-budget').classList.toggle('active',t==='budget');
+  const order=['packing','budget','converter'];
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',order[i]===t));
+  order.forEach(p=>document.getElementById('panel-'+p).classList.toggle('active',p===t));
 }
 function esc(s){return(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+// 匯率・時差・電壓換算（從自由行整合進來）
+const FX={JPY:0.21,KRW:0.024,THB:0.92,VND:0.0013,USD:32,SGD:24,IDR:0.0020,PHP:0.57,MYR:7,EUR:35,CAD:23};
+const FXNAME={JPY:'日圓',KRW:'韓元',THB:'泰銖',VND:'越南盾',USD:'美元',SGD:'新加坡幣',IDR:'印尼盾',PHP:'披索',MYR:'馬幣',EUR:'歐元',CAD:'加幣'};
+const TZ=[['日本','+1 小時'],['韓國','+1 小時'],['泰國','-1 小時'],['越南','-1 小時'],['新加坡','0（同台灣）'],['印尼峇里','0'],['菲律賓','0'],['加拿大溫哥華','-16/-15 小時']];
+const POWER=[['日本','100V / A 型（同台灣，可直接用）'],['韓國','220V / C·F 型（需轉接）'],['泰國','220V / A·C 型'],['越南','220V / A·C 型'],['新加坡','230V / G 型（需轉接）'],['加拿大','120V / A·B 型（近台灣）']];
+function renderConverter(){
+  const amt=window._fxAmt||10000, cur=window._fxCur||'JPY';
+  const twd=Math.round(amt*FX[cur]).toLocaleString();
+  document.getElementById('panel-converter').innerHTML=`
+    <div class="cat"><h3>💱 匯率換算</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px">
+        <input type="number" id="fxa" value="${amt}" style="flex:1;min-width:120px;padding:11px 14px;border:1px solid var(--divider);font-size:1rem" oninput="window._fxAmt=+this.value;renderConverter()">
+        <select id="fxc" style="padding:11px;border:1px solid var(--divider)" onchange="window._fxCur=this.value;renderConverter()">
+          ${Object.keys(FX).map(c=>`<option value="${c}"${c===cur?' selected':''}>${c} ${FXNAME[c]}</option>`).join('')}
+        </select>
+      </div>
+      <div style="font-family:var(--tc);font-size:1.6rem;color:var(--gold)">≈ NT$ ${twd}</div>
+      <p style="font-size:.78rem;color:var(--sage);margin-top:6px">參考匯率 1 ${cur}=${FX[cur]} TWD，實際以刷卡/銀行為準</p>
+    </div>
+    <div class="cat"><h3>🕐 時差（與台灣比）</h3>
+      <table style="width:100%;font-size:.9rem">${TZ.map(t=>`<tr><td style="padding:6px 0;border-bottom:1px solid var(--divider)">${t[0]}</td><td style="text-align:right;color:var(--pine)">${t[1]}</td></tr>`).join('')}</table></div>
+    <div class="cat"><h3>🔌 電壓插頭（台灣 110V/A型）</h3>
+      <table style="width:100%;font-size:.9rem">${POWER.map(p=>`<tr><td style="padding:6px 0;border-bottom:1px solid var(--divider)">${p[0]}</td><td style="text-align:right;color:var(--pine)">${p[1]}</td></tr>`).join('')}</table>
+      <p style="font-size:.78rem;color:var(--sage);margin-top:6px">手機/筆電充電器多支援全球電壓，只需轉接頭；高功率電器需確認電壓</p></div>`;
+}
+renderConverter();
 cloudReady(()=>{
   PK_DOC.onSnapshot(s=>{packing=(s.exists&&Array.isArray(s.data().data))?s.data().data:defaultPacking();renderPacking();},e=>alert('雲端讀取失敗：'+e.message));
   BD_DOC.onSnapshot(s=>{budget=(s.exists&&s.data().data)?s.data().data:{items:[],people:7};renderBudget();},e=>alert('雲端讀取失敗：'+e.message));
